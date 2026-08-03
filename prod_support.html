@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>UNO 2.0 — Production Support Dashboard</title>
+<style>
+  :root {
+    --bg: #f5f6f8; --card: #ffffff; --border: #e3e6ea; --text: #1c1f24; --muted: #6b7280;
+    --accent: #2563eb; --accent-soft: #e8efff; --blocker: #dc2626; --critical: #ea580c;
+    --major: #d97706; --minor: #2563eb; --low: #64748b; --closed: #16a34a; --open: #2563eb;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background: var(--bg); color: var(--text); }
+  .wrap { max-width: 1280px; margin: 0 auto; padding: 28px 24px 60px; }
+  header { margin-bottom: 24px; }
+  header h1 { font-size: 22px; margin: 0 0 6px; }
+  header p { margin: 0; color: var(--muted); font-size: 13.5px; }
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 14px; margin: 22px 0 28px; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 16px 18px; }
+  .card .num { font-size: 24px; font-weight: 700; }
+  .card .label { font-size: 12.5px; color: var(--muted); margin-top: 4px; }
+  .panel { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; margin-bottom: 22px; }
+  .panel h2 { font-size: 15px; margin: 0 0 14px; }
+  .bar-row { display: flex; align-items: center; gap: 10px; margin-bottom: 9px; font-size: 13px; }
+  .bar-name { width: 170px; flex-shrink: 0; color: var(--text); text-align: right; }
+  .bar-track { flex: 1; background: #eef1f5; border-radius: 6px; height: 20px; position: relative; overflow: hidden; }
+  .bar-fill { background: linear-gradient(90deg, var(--accent), #60a5fa); height: 100%; border-radius: 6px; }
+  .bar-val { width: 70px; flex-shrink: 0; color: var(--muted); font-variant-numeric: tabular-nums; }
+  .filters { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 16px; }
+  .filters input, .filters select { padding: 8px 10px; border: 1px solid var(--border); border-radius: 8px; font-size: 13px; background: #fff; color: var(--text); }
+  .filters input[type="text"] { flex: 1; min-width: 200px; }
+  table { width: 100%; border-collapse: collapse; font-size: 12.8px; }
+  thead th { text-align: left; padding: 9px 10px; border-bottom: 2px solid var(--border); color: var(--muted); font-weight: 600; cursor: pointer; white-space: nowrap; user-select: none; }
+  thead th:hover { color: var(--accent); }
+  tbody tr { border-bottom: 1px solid var(--border); cursor: pointer; }
+  tbody tr:hover { background: #fafbfc; }
+  tbody td { padding: 9px 10px; vertical-align: top; }
+  .key a { color: var(--accent); text-decoration: none; font-weight: 600; }
+  .key a:hover { text-decoration: underline; }
+  .summary-cell { max-width: 320px; }
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 11px; font-weight: 600; white-space: nowrap; }
+  .pri-Blocker, .pri-Critical { background: #fee2e2; color: var(--blocker); }
+  .pri-Major { background: #fef3c7; color: var(--major); }
+  .pri-Minor, .pri-Minor\/Low { background: #dbeafe; color: var(--minor); }
+  .status-badge { background: #f1f5f9; color: #475569; }
+  .status-Closed { background: #dcfce7; color: var(--closed); }
+  .status-InProgress, .status-In-Progress { background: #dbeafe; color: var(--open); }
+  .chips { display: flex; flex-wrap: wrap; gap: 4px; }
+  .chip { background: var(--accent-soft); color: var(--accent); padding: 2px 7px; border-radius: 999px; font-size: 11px; white-space: nowrap; }
+  .count { color: var(--muted); font-weight: 400; }
+  footer { color: var(--muted); font-size: 11.5px; margin-top: 18px; line-height: 1.6; }
+  .hidden { display: none !important; }
+  .no-results { padding: 30px; text-align: center; color: var(--muted); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>UNO 2.0 — Production Support Dashboard</h1>
+    <p id="subtitle"></p>
+    <p id="lastUpdated" style="margin-top:6px;font-size:12.5px;font-weight:600;color:#2563eb;"></p>
+  </header>
+  <div class="cards" id="cards"></div>
+  <div class="panel">
+    <h2>Time logged by team member (hours, this window)</h2>
+    <div id="chart"></div>
+  </div>
+  <div class="panel" id="openPanel">
+    <h2>Open tickets assigned to tracked members (<span id="openCount">0</span>)</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Key</th>
+          <th>Summary</th>
+          <th>Assignee</th>
+          <th>Status</th>
+          <th>Priority</th>
+          <th>Created</th>
+          <th>Total time</th>
+        </tr>
+      </thead>
+      <tbody id="openTbody"></tbody>
+    </table>
+    <div class="no-results hidden" id="openNoResults">No open tickets currently assigned to a tracked member.</div>
+  </div>
+  <div class="panel">
+    <h2>Bug tickets</h2>
+    <div class="filters">
+      <input type="text" id="search" placeholder="Search key or summary…">
+      <select id="memberFilter"><option value="">All members</option></select>
+      <select id="statusFilter"><option value="">All statuses</option></select>
+      <select id="priorityFilter"><option value="">All priorities</option></select>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th data-sort="key">Key</th>
+          <th data-sort="summary">Summary</th>
+          <th data-sort="assignee_name">Assignee</th>
+          <th data-sort="status">Status</th>
+          <th data-sort="priority">Priority</th>
+          <th data-sort="created">Created</th>
+          <th data-sort="timespent_total">Total time</th>
+          <th data-sort="member_seconds_sum">Members time</th>
+          <th>Contributors</th>
+        </tr>
+      </thead>
+      <tbody id="tbody"></tbody>
+    </table>
+    <div class="no-results hidden" id="noResults">No tickets match the current filters.</div>
+  </div>
+  <footer id="footer"></footer>
+</div>
+<script id="ticket-data" type="application/json">{"tickets": [{"key": "UNO20-16719", "summary": "[PROD UNO 1.0][UAT] Unable to Avail Pre-approve offer due to error appears in Processing screen", "created": "2026-06-15T12:30:08.577+0530", "status": "Closed", "priority": "Minor", "assignee_id": "63d338edd73cd1e44e2299e5", "assignee_name": "Jayrold Somido", "timespent_total": 59400, "member_breakdown": [{"id": "712020:257abd7a-905e-4701-aed4-ef7851ff7478", "name": "Tran Minh Chinh", "seconds": 5400}], "member_seconds_sum": 5400}, {"key": "UNO20-16948", "summary": "[CUG][NTB Loan] Application is not sent to LOS", "created": "2026-06-17T08:21:22.445+0530", "status": "Blocked in CUG", "priority": "Major", "assignee_id": "712020:fa6a7cea-3d91-4ecd-8a1f-7ec4df919445", "assignee_name": "Brijesh Kumar Srivastava", "timespent_total": 16500, "member_breakdown": [{"id": "712020:056e891b-b3f2-479d-8c46-0f00ef07f076", "name": "huynh.tri", "seconds": 1200}], "member_seconds_sum": 1200}, {"key": "UNO20-16965", "summary": "[Gsave][Deposit] Multiple Defects in Transaction Flow Validation", "created": "2026-06-17T13:37:00.597+0530", "status": "Closed", "priority": "Minor", "assignee_id": "637333a2fde064eda2ec14c9", "assignee_name": "Keno Santiago", "timespent_total": 74400, "member_breakdown": [], "member_seconds_sum": 0}, {"key": "UNO20-17293", "summary": "[CR][CUG][My Card] My Card Goes Back to Activate your Virtual Card Screen After Successfully Replaced Virtual Card", "created": "2026-06-26T10:17:52.522+0530", "status": "Closed", "priority": "Minor", "assignee_id": "63d338ec4a3c3294ac05295f", "assignee_name": "Jason Keith Chua", "timespent_total": 72900, "member_breakdown": [{"id": "712020:056e891b-b3f2-479d-8c46-0f00ef07f076", "name": "huynh.tri", "seconds": 3600}], "member_seconds_sum": 3600}, {"key": "UNO20-17339", "summary": "[UNO 2.0] Request Physical Card \u2014 No distance validation", "created": "2026-06-29T11:43:28.241+0530", "status": "Closed", "priority": "Major", "assignee_id": "63d338ed5a23f7e717cec0a0", "assignee_name": "Jhoniel Praza", "timespent_total": 51300, "member_breakdown": [{"id": "712020:056e891b-b3f2-479d-8c46-0f00ef07f076", "name": "huynh.tri", "seconds": 1800}], "member_seconds_sum": 1800}, {"key": "UNO20-17777", "summary": "[UNO 2.0] Dark mode - Debit Card Order Delivery Address UI issues", "created": "2026-07-08T13:36:05.985+0530", "status": "Closed", "priority": "Minor/Low", "assignee_id": "63d338ed5a23f7e717cec0a0", "assignee_name": "Jhoniel Praza", "timespent_total": 32400, "member_breakdown": [{"id": "712020:17dc836f-dbed-4769-bfa3-6fc6b1df19c7", "name": "Tuan Do", "seconds": 25200}], "member_seconds_sum": 25200}, {"key": "UNO20-17938", "summary": "[CUG][ETB Loans] Generic error show during processing screen then after relogin loan is successfully availed", "created": "2026-07-15T10:58:14.811+0530", "status": "Failed in CUG", "priority": "Major", "assignee_id": "712020:b7b55de5-9eae-40d4-8611-19b637698fc3", "assignee_name": "vishal kumar pingua", "timespent_total": 67800, "member_breakdown": [{"id": "712020:056e891b-b3f2-479d-8c46-0f00ef07f076", "name": "huynh.tri", "seconds": 16200}], "member_seconds_sum": 16200}, {"key": "UNO20-18089", "summary": "[Gsave][Deposit] UNOready@GCash balance did not update instantly after deposit transaction succeed", "created": "2026-07-20T10:24:21.937+0530", "status": "In Progress", "priority": "Minor", "assignee_id": "712020:1f73bd72-65b0-4d45-ba63-84a358874949", "assignee_name": "Aravindh Kumar", "timespent_total": 58800, "member_breakdown": [{"id": "712020:056e891b-b3f2-479d-8c46-0f00ef07f076", "name": "huynh.tri", "seconds": 1800}], "member_seconds_sum": 1800}, {"key": "UNO20-18123", "summary": "[CUG][NTB Loan] Complete Account Set-up is not showing the required action", "created": "2026-07-21T12:58:05.212+0530", "status": "Blocked in CUG", "priority": "Critical", "assignee_id": "712020:75a0cdd8-2c30-48f4-ba84-b8f92649a686", "assignee_name": "Ritesh Kumar", "timespent_total": 17100, "member_breakdown": [{"id": "712020:056e891b-b3f2-479d-8c46-0f00ef07f076", "name": "huynh.tri", "seconds": 900}], "member_seconds_sum": 900}, {"key": "UNO20-18129", "summary": "[CUG 2.0 Loan Schedule] - Installment Upcoming Payment Field Is Incorrect", "created": "2026-07-22T10:47:31.414+0530", "status": "Closed", "priority": "Minor", "assignee_id": "63d338ec4a3c3294ac05295f", "assignee_name": "Jason Keith Chua", "timespent_total": 17100, "member_breakdown": [{"id": "712020:257abd7a-905e-4701-aed4-ef7851ff7478", "name": "Tran Minh Chinh", "seconds": 14400}], "member_seconds_sum": 14400}, {"key": "UNO20-18131", "summary": "[CUG][NTB Loan] HV Verification not proceeding", "created": "2026-07-22T11:44:14.328+0530", "status": "Closed", "priority": "Blocker", "assignee_id": "712020:d39001d7-8f4f-4b14-a188-7438f5b0cd05", "assignee_name": "Son Kim", "timespent_total": 36000, "member_breakdown": [{"id": "712020:257abd7a-905e-4701-aed4-ef7851ff7478", "name": "Tran Minh Chinh", "seconds": 14400}], "member_seconds_sum": 14400}, {"key": "UNO20-18160", "summary": "[CUG 2.0 Loans Tab] - Transaction History Loans Tab Should be Loans Related Transaction Only.", "created": "2026-07-27T08:24:34.868+0530", "status": "Failed in CUG", "priority": "Minor", "assignee_id": "712020:17dc836f-dbed-4769-bfa3-6fc6b1df19c7", "assignee_name": "Tuan Do", "timespent_total": 36000, "member_breakdown": [{"id": "712020:17dc836f-dbed-4769-bfa3-6fc6b1df19c7", "name": "Tuan Do", "seconds": 14400}, {"id": "712020:257abd7a-905e-4701-aed4-ef7851ff7478", "name": "Tran Minh Chinh", "seconds": 1800}], "member_seconds_sum": 16200}, {"key": "UNO20-18167", "summary": "[UAT][UNO 2.0] No transactions are shown in the Upcoming.", "created": "2026-07-27T14:07:42.361+0530", "status": "Failed in UAT", "priority": "Minor", "assignee_id": "712020:b7b55de5-9eae-40d4-8611-19b637698fc3", "assignee_name": "vishal kumar pingua", "timespent_total": 27000, "member_breakdown": [{"id": "712020:056e891b-b3f2-479d-8c46-0f00ef07f076", "name": "huynh.tri", "seconds": 4500}], "member_seconds_sum": 4500}, {"key": "UNO20-18171", "summary": "[UAT UNO 2.0][NTB/ETB] All accounts that has approved offer goes back to Apply Now", "created": "2026-07-28T06:40:22.883+0530", "status": "RE-OPEN", "priority": "Critical", "assignee_id": "712020:b7b55de5-9eae-40d4-8611-19b637698fc3", "assignee_name": "vishal kumar pingua", "timespent_total": 29700, "member_breakdown": [{"id": "712020:257abd7a-905e-4701-aed4-ef7851ff7478", "name": "Tran Minh Chinh", "seconds": 16200}, {"id": "712020:056e891b-b3f2-479d-8c46-0f00ef07f076", "name": "huynh.tri", "seconds": 2700}], "member_seconds_sum": 18900}, {"key": "UNO20-18177", "summary": "[UNO2.0 Loan Transaction History] - Loan Transaction History at Loans Tab Are Missing", "created": "2026-07-29T11:53:22.508+0530", "status": "Failed in CUG", "priority": "Minor", "assignee_id": "63d338ec4a3c3294ac05295f", "assignee_name": "Jason Keith Chua", "timespent_total": 6300, "member_breakdown": [{"id": "712020:056e891b-b3f2-479d-8c46-0f00ef07f076", "name": "huynh.tri", "seconds": 900}], "member_seconds_sum": 900}, {"key": "UNO20-18178", "summary": "[CUG][Data Migration] The user was still able to login in UNO 1.0 after the Migration.", "created": "2026-07-29T13:53:16.794+0530", "status": "Failed in UAT", "priority": "Minor", "assignee_id": "712020:75a0cdd8-2c30-48f4-ba84-b8f92649a686", "assignee_name": "Ritesh Kumar", "timespent_total": 12600, "member_breakdown": [{"id": "712020:056e891b-b3f2-479d-8c46-0f00ef07f076", "name": "huynh.tri", "seconds": 1800}], "member_seconds_sum": 1800}, {"key": "UNO20-18185", "summary": "[UNO 2.0 Limits] Displayed transaction and daily limit are not synced with the configured limit", "created": "2026-07-29T20:40:09.314+0530", "status": "Resolved in CUG", "priority": "Minor", "assignee_id": "712020:f8ba3856-4836-40a2-afa7-7954e0224d66", "assignee_name": "John Angelo Perez", "timespent_total": 40500, "member_breakdown": [{"id": "712020:17dc836f-dbed-4769-bfa3-6fc6b1df19c7", "name": "Tuan Do", "seconds": 21600}], "member_seconds_sum": 21600}, {"key": "UNO20-18210", "summary": "[CUG] Incorrect KYC Flags and Case ID created for NTB Loan Application", "created": "2026-07-31T11:25:24.107+0530", "status": "Failed in CUG", "priority": "Critical", "assignee_id": "712020:b7b55de5-9eae-40d4-8611-19b637698fc3", "assignee_name": "vishal kumar pingua", "timespent_total": 9900, "member_breakdown": [{"id": "712020:257abd7a-905e-4701-aed4-ef7851ff7478", "name": "Tran Minh Chinh", "seconds": 1800}], "member_seconds_sum": 1800}, {"key": "UNO20-18220", "summary": "[CUG 2.0 ] - Incorrect Display of Loans Tab Transaction History", "created": "2026-08-01T06:50:33.141+0530", "status": "New", "priority": "Minor", "assignee_id": "712020:17dc836f-dbed-4769-bfa3-6fc6b1df19c7", "assignee_name": "Tuan Do", "timespent_total": 0, "member_breakdown": [], "member_seconds_sum": 0}, {"key": "UNO20-18221", "summary": "[CUG UNO 2.0] Pre log in lock card shows something went wrong error", "created": "2026-08-01T07:27:24.689+0530", "status": "Closed", "priority": "Minor", "assignee_id": "712020:91e3a6ee-f7d9-4980-aac9-620b5a145cee", "assignee_name": "Carl James Enriquez", "timespent_total": 7200, "member_breakdown": [{"id": "712020:056e891b-b3f2-479d-8c46-0f00ef07f076", "name": "huynh.tri", "seconds": 7200}], "member_seconds_sum": 7200}, {"key": "UNO20-18222", "summary": "[CUG 2.0] Loan Monthly amount Mismatch after Loan approved", "created": "2026-08-01T10:02:36.864+0530", "status": "New", "priority": "Minor", "assignee_id": "712020:75a0cdd8-2c30-48f4-ba84-b8f92649a686", "assignee_name": "Ritesh Kumar", "timespent_total": 1800, "member_breakdown": [{"id": "712020:257abd7a-905e-4701-aed4-ef7851ff7478", "name": "Tran Minh Chinh", "seconds": 1800}], "member_seconds_sum": 1800}, {"key": "UNO20-18224", "summary": "[CUG UNO 2.0][Active Loans] Missing Prepay, Payoff, Cancel button", "created": "2026-08-03T07:38:10.026+0530", "status": "Not an Issue", "priority": "Major", "assignee_id": "63d338edd73cd1e44e2299e5", "assignee_name": "Jayrold Somido", "timespent_total": 1800, "member_breakdown": [{"id": "712020:257abd7a-905e-4701-aed4-ef7851ff7478", "name": "Tran Minh Chinh", "seconds": 1800}], "member_seconds_sum": 1800}], "members": {"712020:257abd7a-905e-4701-aed4-ef7851ff7478": "Tran Minh Chinh", "712020:17dc836f-dbed-4769-bfa3-6fc6b1df19c7": "Tuan Do", "712020:056e891b-b3f2-479d-8c46-0f00ef07f076": "huynh.tri"}}</script>
+<script>
+const DATA = JSON.parse(document.getElementById('ticket-data').textContent);
+const tickets = DATA.tickets;
+const members = DATA.members;
+const JIRA_BASE = "https://unobank.atlassian.net/browse/";
+const GENERATED_AT = "2026-08-03 14:43 (+07:00)";
+function fmtHours(sec) { return (sec / 3600).toFixed(2) + "h"; }
+function fmtDate(iso) { const d = new Date(iso); return d.toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" }); }
+const totalTickets = tickets.length;
+const totalMemberSeconds = tickets.reduce((a, t) => a + t.member_seconds_sum, 0);
+const contributors = new Set();
+tickets.forEach(t => t.member_breakdown.forEach(m => contributors.add(m.id)));
+const closedCount = tickets.filter(t => /closed|resolved/i.test(t.status)).length;
+const openCount = totalTickets - closedCount;
+const cardsEl = document.getElementById('cards');
+[["Total bugs", totalTickets], ["Total logged by members", fmtHours(totalMemberSeconds)], ["Active contributors", contributors.size + " / " + Object.keys(members).length], ["Closed / resolved", closedCount], ["Open / in progress", openCount]].forEach(([label, num]) => {
+  const div = document.createElement('div'); div.className = 'card'; div.innerHTML = `<div class="num">${num}</div><div class="label">${label}</div>`; cardsEl.appendChild(div);
+});
+document.getElementById('subtitle').textContent = `Project UNO 2.0 (UNO20) · Bugs raised OR updated since 2026-08-01 · assigned to OR worked on by ${Object.keys(members).length} production support members`;
+document.getElementById('lastUpdated').textContent = "Last updated: " + GENERATED_AT + " · auto-refreshes hourly, reload this page to see the newest version";
+const personTotals = {};
+Object.keys(members).forEach(id => personTotals[id] = 0);
+tickets.forEach(t => t.member_breakdown.forEach(m => { personTotals[m.id] = (personTotals[m.id] || 0) + m.seconds; }));
+const sortedPeople = Object.entries(personTotals).map(([id, secs]) => ({ id, name: members[id], secs })).sort((a, b) => b.secs - a.secs);
+const maxSecs = Math.max(...sortedPeople.map(p => p.secs), 1);
+const chartEl = document.getElementById('chart');
+sortedPeople.forEach(p => {
+  const row = document.createElement('div'); row.className = 'bar-row'; const pct = (p.secs / maxSecs) * 100;
+  row.innerHTML = `<div class="bar-name">${p.name}</div><div class="bar-track"><div class="bar-fill" style="width:${pct}%"></div></div><div class="bar-val">${fmtHours(p.secs)}</div>`;
+  chartEl.appendChild(row);
+});
+const memberFilter = document.getElementById('memberFilter');
+sortedPeople.forEach(p => { const opt = document.createElement('option'); opt.value = p.id; opt.textContent = p.name; memberFilter.appendChild(opt); });
+const statuses = [...new Set(tickets.map(t => t.status))].sort();
+const statusFilter = document.getElementById('statusFilter');
+statuses.forEach(s => { const opt = document.createElement('option'); opt.value = s; opt.textContent = s; statusFilter.appendChild(opt); });
+const priorities = [...new Set(tickets.map(t => t.priority))].sort();
+const priorityFilter = document.getElementById('priorityFilter');
+priorities.forEach(p => { const opt = document.createElement('option'); opt.value = p; opt.textContent = p; priorityFilter.appendChild(opt); });
+const tbody = document.getElementById('tbody');
+const noResults = document.getElementById('noResults');
+let sortKey = 'created'; let sortDir = -1;
+function priorityClass(p) { if (/blocker|critical/i.test(p)) return 'pri-Blocker'; if (/major/i.test(p)) return 'pri-Major'; return 'pri-Minor'; }
+function statusClass(s) { if (/closed|resolved/i.test(s)) return 'status-Closed'; if (/progress/i.test(s)) return 'status-InProgress'; return 'status-badge'; }
+function render() {
+  const q = document.getElementById('search').value.toLowerCase();
+  const mFilter = memberFilter.value; const sFilter = statusFilter.value; const pFilter = priorityFilter.value;
+  let rows = tickets.filter(t => {
+    if (q && !(t.key.toLowerCase().includes(q) || t.summary.toLowerCase().includes(q))) return false;
+    if (mFilter && !t.member_breakdown.some(m => m.id === mFilter)) return false;
+    if (sFilter && t.status !== sFilter) return false;
+    if (pFilter && t.priority !== pFilter) return false;
+    return true;
+  });
+  rows = rows.slice().sort((a, b) => {
+    let av = a[sortKey], bv = b[sortKey];
+    if (typeof av === 'string') { av = av.toLowerCase(); bv = bv.toLowerCase(); }
+    if (av < bv) return -1 * sortDir; if (av > bv) return 1 * sortDir; return 0;
+  });
+  tbody.innerHTML = '';
+  noResults.classList.toggle('hidden', rows.length > 0);
+  rows.forEach(t => {
+    const tr = document.createElement('tr');
+    const chips = t.member_breakdown.map(m => `<span class="chip">${m.name} · ${fmtHours(m.seconds)}</span>`).join('');
+    tr.innerHTML = `<td class="key"><a href="${JIRA_BASE}${t.key}" target="_blank" rel="noopener">${t.key}</a></td><td class="summary-cell">${t.summary}</td><td>${t.assignee_name || '—'}</td><td><span class="badge ${statusClass(t.status)}">${t.status}</span></td><td><span class="badge ${priorityClass(t.priority)}">${t.priority}</span></td><td>${fmtDate(t.created)}</td><td>${fmtHours(t.timespent_total)}</td><td>${fmtHours(t.member_seconds_sum)}</td><td><div class="chips">${chips || '<span class="count">—</span>'}</div></td>`;
+    tbody.appendChild(tr);
+  });
+}
+document.querySelectorAll('thead th[data-sort]').forEach(th => { th.addEventListener('click', () => { const key = th.getAttribute('data-sort'); if (sortKey === key) sortDir *= -1; else { sortKey = key; sortDir = 1; } render(); }); });
+['search', 'memberFilter', 'statusFilter', 'priorityFilter'].forEach(id => { document.getElementById(id).addEventListener('input', render); });
+render();
+function renderOpenAssigned() {
+  const rows = tickets
+    .filter(t => t.assignee_id && members[t.assignee_id] && !/closed|resolved/i.test(t.status))
+    .sort((a, b) => new Date(a.created) - new Date(b.created));
+  document.getElementById('openCount').textContent = rows.length;
+  const openTbody = document.getElementById('openTbody');
+  openTbody.innerHTML = '';
+  document.getElementById('openNoResults').classList.toggle('hidden', rows.length > 0);
+  rows.forEach(t => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td class="key"><a href="${JIRA_BASE}${t.key}" target="_blank" rel="noopener">${t.key}</a></td><td class="summary-cell">${t.summary}</td><td>${t.assignee_name || '—'}</td><td><span class="badge ${statusClass(t.status)}">${t.status}</span></td><td><span class="badge ${priorityClass(t.priority)}">${t.priority}</span></td><td>${fmtDate(t.created)}</td><td>${fmtHours(t.timespent_total)}</td>`;
+    openTbody.appendChild(tr);
+  });
+}
+renderOpenAssigned();
+document.getElementById('footer').innerHTML = `This is a static snapshot, not a live connection to Jira. Generated ${GENERATED_AT} from Jira (unobank.atlassian.net, project UNO20, board 1087) via the Atlassian connector, and this file is automatically regenerated hourly and published to https://sonta-uno.github.io/uno20-dashboard/prod_support.html ; reload the page after a refresh to see the newest data. Scope: issue type = Bug, created OR updated ≥ 2026-08-01, and either assignee or worklog author is one of the 3 tracked production support members (Tran Minh Chinh, Tuan Do, huynh.tri). "Total time" = all logged work on the ticket (any author); "Members time" = only hours logged by the 3 tracked members.`;
+</script>
+</body>
+</html>
