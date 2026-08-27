@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<!-- saved from url=(0057)file:///Users/sonta/Downloads/dashboard-standalone_1.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bug Density Dashboard</title>
+<style>
+  .viz-root {
+    color-scheme: light;
+    --surface-1:      #fcfcfb;
+    --page-plane:     #f9f9f7;
+    --text-primary:   #0b0b0b;
+    --text-secondary: #52514e;
+    --text-muted:     #898781;
+    --gridline:       #e1e0d9;
+    --baseline:       #c3c2b7;
+    --border:         rgba(11,11,11,0.10);
+    --bar-main:       #2a78d6;
+    --bar-other:      #c3c2b7;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:where(:not([data-theme="light"])) .viz-root {
+      color-scheme: dark;
+      --surface-1:      #1a1a19;
+      --page-plane:     #0d0d0d;
+      --text-primary:   #ffffff;
+      --text-secondary: #c3c2b7;
+      --text-muted:     #a3a29c;
+      --gridline:       #2c2c2a;
+      --baseline:       #383835;
+      --border:         rgba(255,255,255,0.10);
+      --bar-main:       #3987e5;
+      --bar-other:      #52514e;
+    }
+  }
+  :root[data-theme="dark"] .viz-root {
+    color-scheme: dark;
+    --surface-1:      #1a1a19;
+    --page-plane:     #0d0d0d;
+    --text-primary:   #ffffff;
+    --text-secondary: #c3c2b7;
+    --text-muted:     #a3a29c;
+    --gridline:       #2c2c2a;
+    --baseline:       #383835;
+    --border:         rgba(255,255,255,0.10);
+    --bar-main:       #3987e5;
+    --bar-other:      #52514e;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body.viz-root {
+    background: var(--page-plane);
+    color: var(--text-primary);
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    padding: 32px 24px 64px;
+  }
+  .wrap { max-width: 880px; margin: 0 auto; }
+  header.page-head { margin-bottom: 28px; }
+  h1 { font-size: 22px; font-weight: 700; margin: 0 0 6px; letter-spacing: -0.01em; }
+  .subtitle { color: var(--text-secondary); font-size: 14px; margin: 0; }
+
+  .stat-row { display: flex; gap: 12px; margin-bottom: 28px; flex-wrap: wrap; }
+  .stat-tile {
+    background: var(--surface-1); border: 1px solid var(--border); border-radius: 10px;
+    padding: 14px 18px; flex: 1 1 160px; min-width: 150px;
+  }
+  .stat-tile .val { font-size: 26px; font-weight: 700; line-height: 1.15; font-variant-numeric: proportional-nums; }
+  .stat-tile .lbl { font-size: 12.5px; color: var(--text-secondary); margin-top: 3px; }
+
+  .panel {
+    background: var(--surface-1); border: 1px solid var(--border); border-radius: 14px;
+    padding: 22px 24px 20px; margin-bottom: 24px;
+  }
+  .panel-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 4px; flex-wrap: wrap; }
+  .panel-title { font-size: 15.5px; font-weight: 700; }
+  .panel-desc { font-size: 12.5px; color: var(--text-secondary); margin: 2px 0 18px; }
+
+  .toggle-btn {
+    font-size: 12px; color: var(--text-secondary); background: transparent;
+    border: 1px solid var(--border); border-radius: 999px; padding: 5px 12px;
+    cursor: pointer; font-family: inherit;
+  }
+  .toggle-btn:hover { color: var(--text-primary); border-color: var(--text-muted); }
+
+  svg { display: block; overflow: visible; }
+  .bar { cursor: pointer; }
+  .bar:hover { opacity: 0.85; }
+  .bar-label { font-size: 12.5px; fill: var(--text-primary); font-family: inherit; }
+  .bar-value { font-size: 12.5px; fill: var(--text-secondary); font-family: inherit; font-variant-numeric: tabular-nums; font-weight: 600; }
+
+  .legend-note { display: flex; align-items: center; gap: 7px; font-size: 12.5px; color: var(--text-secondary); margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--gridline); }
+  .legend-swatch { width: 11px; height: 11px; border-radius: 3px; flex: none; }
+
+  table.data-table { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 4px; }
+  table.data-table th, table.data-table td {
+    text-align: right; padding: 7px 10px; border-bottom: 1px solid var(--gridline);
+    font-variant-numeric: tabular-nums; white-space: nowrap;
+  }
+  table.data-table th:first-child, table.data-table td:first-child { text-align: left; font-variant-numeric: normal; }
+  table.data-table thead th { color: var(--text-secondary); font-weight: 600; font-size: 11.5px; }
+  table.data-table tfoot td, table.data-table tfoot th { font-weight: 700; border-top: 1px solid var(--baseline); border-bottom: none; }
+
+  .other-note { font-size: 11.5px; color: var(--text-muted); margin-top: 12px; line-height: 1.5; }
+  .other-note b { color: var(--text-secondary); font-weight: 600; }
+
+  footer.page-foot { text-align: center; color: var(--text-muted); font-size: 11.5px; margin-top: 8px; }
+</style>
+</head>
+<body class="viz-root">
+<div class="wrap">
+  <header class="page-head">
+    <h1>Uno 2.0 Bug Density Dashboard</h1>
+    <p class="subtitle">Bug count by responsible party (Jira Label) — UAT and CUG test cycles</p>
+  </header>
+
+  <div class="stat-row" id="statRow"><div class="stat-tile"><div class="val">1,062</div><div class="lbl">Total bugs (UAT + CUG)</div></div><div class="stat-tile"><div class="val">846</div><div class="lbl">UAT bugs</div></div><div class="stat-tile"><div class="val">216</div><div class="lbl">CUG bugs</div></div></div>
+
+  <div class="panel" id="panel-UAT">
+    <div class="panel-head">
+      <div>
+        <div class="panel-title">UAT — bugs by party</div>
+        <div class="panel-desc">Number of bugs tagged to each party. A ticket can carry more than one party’s label, so party counts can exceed the ticket total.</div>
+      </div>
+      <button class="toggle-btn" data-toggle="UAT">View as table</button>
+    </div>
+    <div id="chart-UAT"><svg viewBox="0 0 820 534" width="100%" height="534" role="img" aria-label="UAT bug count by party"><text class="bar-label" x="120" y="24" text-anchor="end">KMS</text><rect class="bar" data-label="KMS" data-value="224" x="130" y="6" width="644" height="28" rx="4" fill="var(--bar-main)"></rect><text class="bar-value" x="782" y="24">224</text><text class="bar-label" x="120" y="62" text-anchor="end">Others</text><rect class="bar" data-label="Others" data-value="221" x="130" y="44" width="635.375" height="28" rx="4" fill="var(--bar-other)"></rect><text class="bar-value" x="773.375" y="62">221</text><text class="bar-label" x="120" y="100" text-anchor="end">Not A Issue</text><rect class="bar" data-label="Not A Issue" data-value="219" x="130" y="82" width="629.625" height="28" rx="4" fill="var(--bar-main)"></rect><text class="bar-value" x="767.625" y="100">219</text><text class="bar-label" x="120" y="138" text-anchor="end">Gcash</text><rect class="bar" data-label="Gcash" data-value="66" x="130" y="120" width="189.75" height="28" rx="4" fill="var(--bar-main)"></rect><text class="bar-value" x="327.75" y="138">66</text><text class="bar-label" x="120" y="176" text-anchor="end">Custom</text><rect class="bar" data-label="Custom" data-value="64" x="130" y="158" width="184" height="28" rx="4" fill="var(--bar-main)"></rect><text class="bar-value" x="322" y="176">64</text><text class="bar-label" x="120" y="214" text-anchor="end">CRM</text><rect class="bar" data-label="CRM" data-value="24" x="130" y="196" width="69" height="28" rx="4" fill="var(--bar-main)"></rect><text class="bar-value" x="207" y="214">24</text><text class="bar-label" x="120" y="252" text-anchor="end">Hv</text><rect class="bar" data-label="Hv" data-value="18" x="130" y="234" width="51.75000000000001" height="28" rx="4" fill="var(--bar-main)"></rect><text class="bar-value" x="189.75" y="252">18</text><text class="bar-label" x="120" y="290" text-anchor="end">Camunda</text><rect class="bar" data-label="Camunda" data-value="10" x="130" y="272" width="28.75" height="28" rx="4" fill="var(--bar-main)"></rect><text class="bar-value" x="166.75" y="290">10</text><text class="bar-label" x="120" y="328" text-anchor="end">Infobip</text><rect class="bar" data-label="Infobip" data-value="8" x="130" y="310" width="23" height="28" rx="4" fill="var(--bar-main)"></rect><text class="bar-value" x="161" y="328">8</text><text class="bar-label" x="120" y="366" text-anchor="end">HPS</text><rect class="bar" data-label="HPS" data-value="6" x="130" y="348" width="17.25" height="28" rx="4" fill="var(--bar-main)"></rect><text class="bar-value" x="155.25" y="366">6</text><text class="bar-label" x="120" y="404" text-anchor="end">Singlife</text><rect class="bar" data-label="Singlife" data-value="5" x="130" y="386" width="14.375" height="28" rx="4" fill="var(--bar-main)"></rect><text class="bar-value" x="152.375" y="404">5</text><text class="bar-label" x="120" y="442" text-anchor="end">Bayad</text><rect class="bar" data-label="Bayad" data-value="4" x="130" y="424" width="11.5" height="28" rx="4" fill="var(--bar-main)"></rect><text class="bar-value" x="149.5" y="442">4</text><text class="bar-label" x="120" y="480" text-anchor="end">CIAM</text><rect class="bar" data-label="CIAM" data-value="3" x="130" y="462" width="8.625" height="28" rx="4" fill="var(--bar-main)"></rect><text class="bar-value" x="146.625" y="480">3</text><text class="bar-label" x="120" y="518" text-anchor="end">Exotel</text><rect class="bar" data-label="Exotel" data-value="2" x="130" y="500" width="5.75" height="28" rx="4" fill="var(--bar-main)"></rect><text class="bar-value" x="143.75" y="518">2</text></svg><div class="legend-note"><span class="legend-swatch" style="background:var(--bar-other)"></span>“Others” = every label not mapped to a named party</div></div>
+    <div id="table-UAT" style="display:none"><table class="data-table"><thead><tr><th>Party</th><th>Bug count</th></tr></thead><tbody><tr><th>KMS</th><td>224</td></tr><tr><th>Others</th><td>221</td></tr><tr><th>Not A Issue</th><td>219</td></tr><tr><th>Gcash</th><td>66</td></tr><tr><th>Custom</th><td>64</td></tr><tr><th>CRM</th><td>24</td></tr><tr><th>Hv</th><td>18</td></tr><tr><th>Camunda</th><td>10</td></tr><tr><th>Infobip</th><td>8</td></tr><tr><th>HPS</th><td>6</td></tr><tr><th>Singlife</th><td>5</td></tr><tr><th>Bayad</th><td>4</td></tr><tr><th>CIAM</th><td>3</td></tr><tr><th>Exotel</th><td>2</td></tr></tbody><tfoot><tr><td>Total (party-tags)</td><td>874</td></tr></tfoot></table></div>
+    <div id="othernote-UAT"><div class="other-note"><b>Others</b> in this chart is made up of 31 labels not mapped to a named party: CR (44), BA (38), Infra (34), moengage (26), PT (18), PERX (14), Data-Migration (13), CMS-Config (12), uno2.0 (11), VAPT (11), duplicate (10), Data (10), iexceed (7), Solution (5), Deferred (3), LOS (3), DataMigration (2), Gateway (2), SIT_Bug (2), API (1), M2P (1), PennantLoans (1), FCCM (1), Prod_Issue (1), CFM (1), AppsFlyer (1), functional_story (1), Performance-issue (1), Instagram (1), design (1), Test_Data (1).</div></div>
+  </div>
+
+  <div class="panel" id="panel-CUG">
+    <div class="panel-head">
+      <div>
+        <div class="panel-title">CUG — bugs by party</div>
+        <div class="panel-desc">Number of bugs tagged to each party. A ticket can carry more than one party’s label, so party counts can exceed the ticket total.</div>
+      </div>
+      <button class="toggle-btn" data-toggle="CUG">View as table</button>
+    </div>
+    <div id="chart-CUG"><svg viewBox="0 0 820 534" width="100%" height="534" role="img" aria-label="CUG bug count by party"><text class="bar-label" x="120" y="24" text-anchor="end">Others</text><rect class="bar" data-label="Others" data-value="83" x="130" y="6" width="644" height="28" rx="4" fill="var(--bar-other)"></rect><text class="bar-value" x="782" y="24">83</text><text class="bar-label" x="120" y="62" text-anchor="end">Not A Issue</text><rect class="bar" data-label="Not A Issue" data-value="37" x="130" y="44" width="287.0843373493976" height="28" rx="4" fill="var(--bar-main)"></rect><text class="bar-value" x="425.0843373493976" y="62">37</text><text class="bar-label" x="120" y="100" text-anchor="end">Custom</text><rect class="bar" data-label="Custom" data-value="35" x="130" y="82" width="271.566265060241" height="28" rx="4" fill="var(--bar-main)"></rect><text class="bar-value" x="409.566265060241" y="100">35</text><text class="bar-label" x="120" y="138" text-anchor="end">KMS</text><rect class="bar" data-label="KMS" data-value="35" x="130" y="120" width="271.566265060241" height="28" rx="4" fill="var(--bar-main)"></rect><text class="bar-value" x="409.566265060241" y="138">35</text><text class="bar-label" x="120" y="176" text-anchor="end">Hv</text><rect class="bar" data-label="Hv" data-value="6" x="130" y="158" width="46.554216867469876" height="28" rx="4" fill="var(--bar-main)"></rect><text class="bar-value" x="184.55421686746988" y="176">6</text><text class="bar-label" x="120" y="214" text-anchor="end">Exotel</text><rect class="bar" data-label="Exotel" data-value="5" x="130" y="196" width="38.795180722891565" height="28" rx="4" fill="var(--bar-main)"></rect><text class="bar-value" x="176.79518072289156" y="214">5</text><text class="bar-label" x="120" y="252" text-anchor="end">Singlife</text><rect class="bar" data-label="Singlife" data-value="4" x="130" y="234" width="31.036144578313255" height="28" rx="4" fill="var(--bar-main)"></rect><text class="bar-value" x="169.03614457831327" y="252">4</text><text class="bar-label" x="120" y="290" text-anchor="end">Gcash</text><rect class="bar" data-label="Gcash" data-value="4" x="130" y="272" width="31.036144578313255" height="28" rx="4" fill="var(--bar-main)"></rect><text class="bar-value" x="169.03614457831327" y="290">4</text><text class="bar-label" x="120" y="328" text-anchor="end">CRM</text><rect class="bar" data-label="CRM" data-value="3" x="130" y="310" width="23.277108433734938" height="28" rx="4" fill="var(--bar-main)"></rect><text class="bar-value" x="161.27710843373495" y="328">3</text><text class="bar-label" x="120" y="366" text-anchor="end">Infobip</text><rect class="bar" data-label="Infobip" data-value="3" x="130" y="348" width="23.277108433734938" height="28" rx="4" fill="var(--bar-main)"></rect><text class="bar-value" x="161.27710843373495" y="366">3</text><text class="bar-label" x="120" y="404" text-anchor="end">Camunda</text><rect class="bar" data-label="Camunda" data-value="2" x="130" y="386" width="15.518072289156628" height="28" rx="4" fill="var(--bar-main)"></rect><text class="bar-value" x="153.51807228915663" y="404">2</text><text class="bar-label" x="120" y="442" text-anchor="end">Bayad</text><rect class="bar" data-label="Bayad" data-value="2" x="130" y="424" width="15.518072289156628" height="28" rx="4" fill="var(--bar-main)"></rect><text class="bar-value" x="153.51807228915663" y="442">2</text><text class="bar-label" x="120" y="480" text-anchor="end">HPS</text><rect class="bar" data-label="HPS" data-value="0" x="130" y="462" width="3" height="28" rx="4" fill="var(--bar-main)"></rect><text class="bar-value" x="138" y="480">0</text><text class="bar-label" x="120" y="518" text-anchor="end">CIAM</text><rect class="bar" data-label="CIAM" data-value="0" x="130" y="500" width="3" height="28" rx="4" fill="var(--bar-main)"></rect><text class="bar-value" x="138" y="518">0</text></svg><div class="legend-note"><span class="legend-swatch" style="background:var(--bar-other)"></span>“Others” = every label not mapped to a named party</div></div>
+    <div id="table-CUG" style="display:none"><table class="data-table"><thead><tr><th>Party</th><th>Bug count</th></tr></thead><tbody><tr><th>Others</th><td>83</td></tr><tr><th>Not A Issue</th><td>37</td></tr><tr><th>Custom</th><td>35</td></tr><tr><th>KMS</th><td>35</td></tr><tr><th>Hv</th><td>6</td></tr><tr><th>Exotel</th><td>5</td></tr><tr><th>Singlife</th><td>4</td></tr><tr><th>Gcash</th><td>4</td></tr><tr><th>CRM</th><td>3</td></tr><tr><th>Infobip</th><td>3</td></tr><tr><th>Camunda</th><td>2</td></tr><tr><th>Bayad</th><td>2</td></tr><tr><th>HPS</th><td>0</td></tr><tr><th>CIAM</th><td>0</td></tr></tbody><tfoot><tr><td>Total (party-tags)</td><td>219</td></tr></tfoot></table></div>
+    <div id="othernote-CUG"><div class="other-note"><b>Others</b> in this chart is made up of 15 labels not mapped to a named party: Infra (22), CR (17), CMS-Config (12), duplicate (8), Kong (8), Data (7), PERX (6), BA (3), moengage (2), Deferred (2), Data-Migration (2), Solution (2), DataMigration (2), AppsFlyer (1), Prod_Issue (1).</div></div>
+  </div>
+
+  <footer class="page-foot">Generated from Jira exports · “Others” groups every label not mapped to a named party</footer>
+</div>
+
+<script>
+const DATA = {"UAT": {"labels": ["Custom", "CRM", "Camunda", "KMS", "HPS", "Bayad", "Hv", "Singlife", "Gcash", "Infobip", "CIAM", "Exotel", "Not A Issue", "Others"], "counts": [64, 24, 10, 224, 6, 4, 18, 5, 66, 8, 3, 2, 219, 221], "totalTickets": 846, "otherLabelsList": ["CR", "BA", "Infra", "moengage", "PT", "PERX", "Data-Migration", "CMS-Config", "uno2.0", "VAPT", "duplicate", "Data", "iexceed", "Solution", "Deferred", "LOS", "DataMigration", "Gateway", "SIT_Bug", "API", "M2P", "PennantLoans", "FCCM", "Prod_Issue", "CFM", "AppsFlyer", "functional_story", "Performance-issue", "Instagram", "design", "Test_Data"], "otherLabelCounts": [44, 38, 34, 26, 18, 14, 13, 12, 11, 11, 10, 10, 7, 5, 3, 3, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]}, "CUG": {"labels": ["Custom", "CRM", "Camunda", "KMS", "HPS", "Bayad", "Hv", "Singlife", "Gcash", "Infobip", "CIAM", "Exotel", "Not A Issue", "Others"], "counts": [35, 3, 2, 35, 0, 2, 6, 4, 4, 3, 0, 5, 37, 83], "totalTickets": 216, "otherLabelsList": ["Infra", "CR", "CMS-Config", "duplicate", "Kong", "Data", "PERX", "BA", "moengage", "Deferred", "Data-Migration", "Solution", "DataMigration", "AppsFlyer", "Prod_Issue"], "otherLabelCounts": [22, 17, 12, 8, 8, 7, 6, 3, 2, 2, 2, 2, 2, 1, 1]}};
+
+function fmt(n) { return n.toLocaleString('en-US'); }
+
+function buildStats() {
+  const row = document.getElementById('statRow');
+  const uatTotal = DATA.UAT.totalTickets, cugTotal = DATA.CUG.totalTickets;
+  const tiles = [
+    { val: fmt(uatTotal + cugTotal), lbl: 'Total bugs (UAT + CUG)' },
+    { val: fmt(uatTotal), lbl: 'UAT bugs' },
+    { val: fmt(cugTotal), lbl: 'CUG bugs' },
+  ];
+  row.innerHTML = tiles.map(t => `<div class="stat-tile"><div class="val">${t.val}</div><div class="lbl">${t.lbl}</div></div>`).join('');
+}
+
+function buildChart(key) {
+  const d = DATA[key];
+  const items = d.labels.map((l, i) => ({ label: l, value: d.counts[i] }))
+    .sort((a, b) => b.value - a.value);
+
+  const W = 820;
+  const marginL = 130, marginR = 46, marginT = 6, marginB = 6;
+  const rowH = 28, rowGap = 10;
+  const plotW = W - marginL - marginR;
+  const maxV = Math.max(...items.map(x => x.value), 1);
+
+  const H = marginT + marginB + items.length * (rowH + rowGap) - rowGap;
+
+  let svg = `<svg viewBox="0 0 ${W} ${H}" width="100%" height="${H}" role="img" aria-label="${key} bug count by party">`;
+
+  items.forEach((x, i) => {
+    const y0 = marginT + i * (rowH + rowGap);
+    const barW = (x.value / maxV) * plotW;
+    const isOther = x.label === 'Others';
+    const color = isOther ? 'var(--bar-other)' : 'var(--bar-main)';
+    svg += `<text class="bar-label" x="${marginL - 10}" y="${y0 + rowH/2 + 4}" text-anchor="end">${x.label}</text>`;
+    svg += `<rect class="bar" data-label="${x.label}" data-value="${x.value}" x="${marginL}" y="${y0}" width="${Math.max(barW,3)}" height="${rowH}" rx="4" fill="${color}"/>`;
+    svg += `<text class="bar-value" x="${marginL + barW + 8}" y="${y0 + rowH/2 + 4}">${fmt(x.value)}</text>`;
+  });
+
+  svg += `</svg>`;
+  document.getElementById('chart-'+key).innerHTML = svg;
+  document.getElementById('chart-'+key).innerHTML += `<div class="legend-note"><span class="legend-swatch" style="background:var(--bar-other)"></span>&ldquo;Others&rdquo; = every label not mapped to a named party</div>`;
+
+  buildTable(key, items);
+  buildOtherNote(key);
+}
+
+function buildOtherNote(key) {
+  const d = DATA[key];
+  const el = document.getElementById('othernote-'+key);
+  if (!d.otherLabelsList || d.otherLabelsList.length === 0) {
+    el.innerHTML = '';
+    return;
+  }
+  const parts = d.otherLabelsList.map((l, i) => `${l} (${d.otherLabelCounts[i]})`).join(', ');
+  el.innerHTML = `<div class="other-note"><b>Others</b> in this chart is made up of ${d.otherLabelsList.length} labels not mapped to a named party: ${parts}.</div>`;
+}
+
+function buildTable(key, items) {
+  let html = '<table class="data-table"><thead><tr><th>Party</th><th>Bug count</th></tr></thead><tbody>';
+  items.forEach(x => {
+    html += `<tr><th>${x.label}</th><td>${fmt(x.value)}</td></tr>`;
+  });
+  const total = items.reduce((s,x)=>s+x.value,0);
+  html += `</tbody><tfoot><tr><td>Total (party-tags)</td><td>${fmt(total)}</td></tr></tfoot></table>`;
+  document.getElementById('table-'+key).innerHTML = html;
+}
+
+document.querySelectorAll('.toggle-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const key = btn.dataset.toggle;
+    const chart = document.getElementById('chart-'+key);
+    const table = document.getElementById('table-'+key);
+    const showingTable = table.style.display !== 'none';
+    table.style.display = showingTable ? 'none' : 'block';
+    chart.style.display = showingTable ? 'block' : 'none';
+    btn.textContent = showingTable ? 'View as table' : 'View as chart';
+  });
+});
+
+buildStats();
+buildChart('UAT');
+buildChart('CUG');
+</script>
+
+
+</body></html>
