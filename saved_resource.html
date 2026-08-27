@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<!-- saved from url=(0253)https://42ae52d1-ed1b-42a9-a154-0014ac620c35.frame.claudeusercontent.com/_f/1787805101-4ded/?__frame_t=3V-SqQuW2J8v-UGkSKdTEJMQ.71cd366e-4fbd-4f60-849d-26a2c45527c7.4db25067-593f-4601-9ff7-189a923478ae.1787814238&__frame_v=manifest.9898276473c7738d.json -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><!-- frame-runtime --><!--<base href="/_f/1787805101-4ded/">--><base href="."><script>window.__FRAME_PREAMBLE={"v":1,"capabilities":{"artifact":"artifact.Cg566fpb.js","assets":"assets.8Gk803W0.js","comments":"comments.GLuHR3zP.js","db":"db.CRhVHzSt.js","downloads":"downloads.C3GSvEDP.js","embed":"embed.CxGAyc-v.js","mcp":"mcp.Bvma3qD7.js","network":"network.B5UA9Su4.js","permissions":"permissions.BNySkLV5.js","room":"room.BMMoe2BY.js","sample":"sample.BW2Uysoh.js","self":"artifact.Cg566fpb.js","user":"user.BpKav-Rf.js"},"transforms":"_transforms.CQm3TZ9K.js","comments":"_comments.PBVy184F.js","translate":"_translate.5HCW4BJh.js"}</script><script>(function(){"use strict";var J=["light","dark","system"],Q=/^[A-Za-z0-9_-]{1,64}$/,H=/^[a-zA-Z_:][a-zA-Z0-9_:.-]{0,127}$/,ee=new Set(["class","hidden","value","checked"]);function te(e){const t=e.toLowerCase();return t.startsWith("data-")||t.startsWith("aria-")||ee.has(t)}var Me="http://www.w3.org/1999/xhtml",re="http://www.w3.org/2000/svg",ne=new Set(["script","style","iframe","noscript","noframes","noembed","xmp","plaintext","template","title","textarea","object","embed"]),oe=new Set(["script","style"]);function se(e){const t=e.localName.toLowerCase();return e.namespaceURI==="http://www.w3.org/1999/xhtml"?!ne.has(t):e.namespaceURI===re?!oe.has(t):!1}var ae=new Set(["html","head","body","frameset"]);function ie(e){return e.namespaceURI==="http://www.w3.org/1999/xhtml"&&ae.has(e.localName)}function ce(e){if(e===null||typeof e!="object")return!1;const t=e;if(typeof t.target!="string"||!Q.test(t.target)||t.text!==void 0&&typeof t.text!="string")return!1;if(t.attrsSet!==void 0){if(t.attrsSet===null||typeof t.attrsSet!="object")return!1;for(const[r,n]of Object.entries(t.attrsSet))if(!H.test(r)||typeof n!="string")return!1}if(t.attrsRemoved!==void 0){if(!Array.isArray(t.attrsRemoved))return!1;for(const r of t.attrsRemoved)if(typeof r!="string"||!H.test(r))return!1}return!0}function le(e,t){if(e===null||typeof e!="object")return!1;const{seq:r,elements:n}=e;if(typeof r!="number"||!Number.isSafeInteger(r)||!Array.isArray(n)||n.length===0||n.length>64)return!1;for(let s=0;s<n.length;s++)if(!t(n[s]))return!1;return!0}function ue(e){return e===null||typeof e!="object"?!1:le(e.__frame_patch,ce)}function fe(e){if(e===null||typeof e!="object")return!1;const t=e.__frame_init;return t!==null&&typeof t=="object"}function pe(e){return e!==null&&typeof e=="object"&&e.__frame_size_poke===!0}function de(e){if(e===null||typeof e!="object")return!1;const t=e.__frame_theme;if(t===null||typeof t!="object")return!1;const r=t.theme;return typeof r=="string"&&J.includes(r)}var A=/^[\w.-]+\.js$/;function me(e,t,r){return r?"inert":typeof t=="string"&&A.test(t)?e?[t]:"inert":e?"inert":"framed"}function he(){return{post(e,t){parent.postMessage(e,t)},on(e){const t=r=>{r.source===parent&&e(r.data,r.origin)};return addEventListener("message",t),()=>removeEventListener("message",t)}}}function _e(){return{post:()=>{},on:()=>()=>{}}}var O="__frame_scroll",ve=150,ye=310,we=160,be=3e4;function Ee(){let e=0,t=!1,r=!1,n=!1,s=0,a=null;const l=i=>{try{sessionStorage.setItem(O,JSON.stringify({y:i}))}catch{}},d=()=>{if(clearTimeout(e),a===null)return;const i=a;a=null,l(i)},v=()=>{if(t){t=!1;return}r=!0,a=scrollY,clearTimeout(e),e=setTimeout(d,ve)};try{addEventListener("scroll",v,{passive:!0}),addEventListener("pagehide",d)}catch{}const y=()=>{let i;try{i=sessionStorage.getItem(O)}catch{return null}if(i===null)return null;let m;try{m=JSON.parse(i)}catch{m=null}const u=m?.y;if(!(typeof u=="number"&&Number.isFinite(u)&&u>=0)){try{sessionStorage.removeItem(O)}catch{}return null}return u};let S=!1;const h=i=>{try{const m=scrollY;scrollTo({top:i,left:0,behavior:"instant"}),s=i,n=!0,clearTimeout(e),a=null,l(i);const u=scrollY;u!==m&&(t=!0),u!==i&&!S&&(S=!0,addEventListener("load",()=>{try{if(scrollY===u){const k=y();h(k!==null?k:s)}}catch{}},{once:!0}))}catch{}},w=()=>{try{return!!location.hash}catch{return!0}};let o=!1;const f=()=>{try{if(o||innerWidth>ye||innerHeight>we)return;o=!0;const i=Date.now(),m=()=>{try{removeEventListener("resize",m)}catch{}if(Date.now()-i>be||r||w())return;const u=y();h(u!==null?u:s)};addEventListener("resize",m)}catch{}};let _=!1,b=!1;return{restore(){if(_||(_=!0,w()))return;const i=y();i!==null&&(h(i),f())},promoted(){if(b||(b=!0,w()))return;const i=y();i!==null?(h(i),f()):n&&h(s)}}}function ge(e,t,r,n){let s=null;try{s=window.trustedTypes?.createPolicy("frame-runtime",{createScriptURL:v=>v})??null}catch{}const a=window.Worker,l=a?.prototype,d=Object.freeze({Worker:a,workerOn:l?.addEventListener,workerPost:l?.postMessage,workerTerminate:l?.terminate,fetch:window.fetch.bind(window),preventDefault:Event.prototype.preventDefault,policy:s,origins:t});r(e).then(v=>v?.bootTopLevel?v.bootTopLevel(d,n):n.settle()).catch(()=>n.settle())}var Oe="modulepreload",Ce=function(e){return"/"+e},je={},Ae=function(t,r,n){let s=Promise.resolve();function a(l){const d=new Event("vite:preloadError",{cancelable:!0});if(d.payload=l,window.dispatchEvent(d),!d.defaultPrevented)throw l}return s.then(l=>{for(const d of l||[])d.status==="rejected"&&a(d.reason);return t().catch(a)})},Re=window===top,q=Object.getOwnPropertyDescriptor(window,"claude"),T=me(Re,window.__FRAME_PREAMBLE?.topLevel,q?.writable===!1),C=typeof T=="object"&&T[0],p=C?_e():he();(function(){const e=Object.defineProperty,t=globalThis,r=["RTCPeerConnection","webkitRTCPeerConnection","RTCDataChannel","RTCIceCandidate","RTCSessionDescription","RTCRtpSender","RTCRtpReceiver"];let n=0;for(let s=0;s<r.length;s++){const a=r[s];try{e(t,a,{value:void 0,writable:!1,configurable:!1})}catch{try{delete t[a]}catch{}try{e(t,a,{value:void 0,writable:!1,configurable:!0})}catch{}}typeof t[a]=="function"&&n++}if(n&&T==="framed")try{p.post({__frame_rtc_lockdown_failed:n},"*")}catch{}})();var Se=1e4,W=Object.freeze([...window.__FRAME_PREAMBLE?.origins??["https://claude.ai","https://preview.claude.ai"]]);function $(e){for(const t of W)if(t.endsWith(":*"))try{const r=new URL(e);if(`${r.protocol}//${r.hostname}:*`===t)return!0}catch{}else if(e===t)return!0;return!1}var L=Object.freeze({...window.__FRAME_PREAMBLE?.capabilities}),j=window.__FRAME_PREAMBLE?.transforms,N=window.__FRAME_PREAMBLE?.comments,I=window.__FRAME_PREAMBLE?.translate;function R(e){return Ae(()=>import("/_runtime/"+e),void 0)}function K(e,t){return{contract:e.contract,changes:new Set(e.changes??[]),flags:new Set(e.flags??[]),capabilities:e.capabilities??{},capBudgets:e.capBudgets??{},transforms:new Map,shellOrigin:t,mount:D,pipe:()=>({wrap:(r,n)=>(...s)=>{try{return n(...s)}catch(a){return Promise.reject(a)}}})}}var P=null,E=null;function Y(e,t,r){try{Object.defineProperty(e,t,{value:r,writable:!1,configurable:!1,enumerable:!0})}catch{try{Object.defineProperty(e,t,{value:r,writable:!1,configurable:!0,enumerable:!0})}catch{}}}var B=!1;function ke(e,t){const r=[];for(const n of e.elements){const s=document.querySelector(`[data-id="${n.target}"]`);if(!s){p.post({__frame_patch_miss:{seq:e.seq}},t);return}if([...Object.keys(n.attrsSet??{}),...n.attrsRemoved??[]].some(a=>!te(a))){p.post({__frame_patch_miss:{seq:e.seq}},t);return}if(n.text!==void 0&&(!se(s)||ie(s))){p.post({__frame_patch_miss:{seq:e.seq}},t);return}for(const[a,l]of Object.entries(n.attrsSet??{}))if(!G(s,a)){try{s.setAttribute(a,l)}catch{}X(s,a,l)}for(const a of n.attrsRemoved??[])G(s,a)||(s.removeAttribute(a),X(s,a,null));typeof n.text=="string"&&(s.textContent=n.text),r.push(n.target)}try{document.dispatchEvent(new CustomEvent("claude:edit",{detail:{seq:e.seq,targets:r}}))}catch{}}function X(e,t,r){if(!(e instanceof HTMLInputElement))return;const n=t.toLowerCase();n==="checked"?e.checked=r!==null:n==="value"&&e.type!=="file"&&(e.value=r??"")}function G(e,t){const r=t.toLowerCase(),n=e;return r==="data-id"||(r==="value"||r==="checked")&&(n.__artifactSecret===!0||/^(password|hidden|file)$/.test(n.type??"")||/(^|\s)(cc-|one-time-code|current-password|new-password)/i.test(`${e.getAttribute("autocomplete")??""} ${n.autocomplete??""}`))}function V(e){const t=document.documentElement;e==="light"||e==="dark"?(t.dataset.theme=e,t.style.colorScheme=e,B=!0):B&&(delete t.dataset.theme,t.style.colorScheme="",B=!1)}var M=new Map;function Te(){let e;const t={u:new Promise(r=>{e=r}),r:r=>{t.done=!0,e(r)},done:!1,nulled:!1};return t}function U(){for(const e of M.values())e.done||(e.nulled=!0,e.r(null))}var Le=Object.freeze(Object.assign(Object.create(null),{call:Function.prototype.call,apply:Function.prototype.apply,bind:Function.prototype.bind})),D=(e,t)=>{const r=M.get(e);if(!r||r.done){r?.nulled&&E&&p.post({__frame_cap_telemetry:{kind:"cap-load-error",cap:e}},E);return}const n=typeof t=="function"?Object.setPrototypeOf(t,Le):Object.assign(Object.create(null),t);typeof n.then=="function"&&delete n.then,r.r(Object.freeze(n))};function Z(){const e=q?.value??{};Y(window,"claude",e);for(const t of Object.keys(L)){if(e[t]!==void 0){Y(e,t,e[t]);continue}M.set(t,Te())}if(e.use===void 0){const t=r=>{if(typeof r!="string"||!Object.hasOwn(L,r))return Promise.resolve(null);const n=M.get(r);return n?n.u:Promise.resolve(e[r]??null)};try{Object.defineProperty(e,"use",{value:t,writable:!0,configurable:!0,enumerable:!1})}catch{}}}if(T==="framed"){const e=j&&A.test(j)?R(j).catch(()=>{}):Promise.resolve(void 0),t=o=>{if(o.type==="auxclick"&&o.button!==1)return;const f=o.target,_=f&&f.closest?f.closest("a[href],area[href]"):null;if(!_)return;const b=_.getAttribute("href");if(!b)return;let i;try{i=new URL(b,document.baseURI)}catch{return}if((i.protocol==="http:"||i.protocol==="https:")&&i.origin!==location.origin){o.preventDefault();const m=(_.getAttribute("target")??"").toLowerCase(),u=o.type==="auxclick"||o.metaKey||o.ctrlKey||o.shiftKey||o.altKey||!["","_self","_top","_parent"].includes(m);p.post({__frame_nav:!0,url:i.href,newTab:u},"*")}};addEventListener("click",t,!0),addEventListener("auxclick",t,!0);const r={},n=o=>{o.isTrusted&&(r.pointer=!0)},s=o=>{o.isTrusted&&(r.click=!0)};addEventListener("pointermove",n,{capture:!0,passive:!0}),addEventListener("click",s,{capture:!0,passive:!0}),e.then(o=>{o?.wireNav&&(o.wireNav(),removeEventListener("click",t,!0),removeEventListener("auxclick",t,!0),removeEventListener("pointermove",n,!0),removeEventListener("click",s,!0),o.wireEngagement?.(r))});let a=null;try{a=Ee()}catch{}Z();let l=null,d=null,v=0;const y=p.on((o,f)=>{$(f)&&fe(o)&&(l=o.__frame_init,E=f,y(),clearTimeout(v),d?.())});p.post({__frame_connect:!0},"*");const S=new Promise(o=>{d=o,v=setTimeout(()=>{y(),o()},Se)}),h=document.readyState==="loading"?new Promise(o=>document.addEventListener("DOMContentLoaded",()=>o(),{once:!0})):Promise.resolve();h.then(()=>{try{a?.restore()}catch{}});const w={cb:null};p.on((o,f)=>{if($(f)&&pe(o)){try{a?.promoted()}catch{}w.cb?.()}}),S.then(async()=>{if(!l||!E){U();return}V(l.theme);const o=E;let f=!1,_=!1;p.on((c,x)=>{if(x!==o)return;de(c)&&V(c.__frame_theme.theme),ue(c)&&ke(c.__frame_patch,o);const g=c?.__fc_mode;g&&typeof g=="object"&&!f&&N&&A.test(N)&&(f=!0,R(N).then(z=>z.install?.(o,g.on===!0)).catch(()=>{}));const F=c?.__ft_cmd;F&&typeof F=="object"&&!_&&I&&A.test(I)&&(_=!0,R(I).then(z=>z.install?.(o,F)).catch(()=>{}))});const b=Object.keys(l.capabilities??{}).filter(c=>Object.hasOwn(L,c)).map(c=>[c,L[c]]).filter(c=>typeof c[1]=="string"&&A.test(c[1])),i=await Promise.allSettled(b.map(([,c])=>R(c))),m=await e,u=E;if(m?.buildBoot||p.post({__frame_cap_telemetry:{kind:"cap-load-error",cap:"_transforms"}},u),m?.buildBoot)try{P=m.buildBoot(l,m.TRANSFORMS??{},{shellOrigin:u,mount:D},c=>p.post({__frame_cap_telemetry:c},u))}catch{p.post({__frame_cap_telemetry:{kind:"cap-load-error",cap:"_transforms"}},u),P=K(l,u)}else P=K(l,u);const k=c=>p.post({__frame_cap_telemetry:{kind:"cap-load-error",cap:c}},u),Pe=P;i.forEach((c,x)=>{const g=b[x][0];if(c.status!=="fulfilled"){k(g);return}try{c.value?.install?.(Pe)}catch{k(g)}}),U(),await h,p.post({__frame_ready:!0},E),e.then(c=>c?.installSizeReporter?.(u,w))})}else C&&(Z(),ge(C,W,R,{settle:U,mount:D}))})();</script><!-- /frame-runtime --><meta name="viewport" content="width=device-width,initial-scale=1"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}</style></head><body class="viz-root">
+<title>Bug Density Dashboard</title>
+<style>
+  .viz-root {
+    color-scheme: light;
+    --surface-1:      #fcfcfb;
+    --page-plane:     #f9f9f7;
+    --text-primary:   #0b0b0b;
+    --text-secondary: #52514e;
+    --text-muted:     #898781;
+    --gridline:       #e1e0d9;
+    --baseline:       #c3c2b7;
+    --border:         rgba(11,11,11,0.10);
+    --series-1: #2a78d6; --series-2: #eb6834; --series-3: #1baf7a; --series-4: #eda100;
+    --series-5: #e87ba4; --series-6: #008300; --series-7: #4a3aa7; --series-8: #898781;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:where(:not([data-theme="light"])) .viz-root {
+      color-scheme: dark;
+      --surface-1:      #1a1a19;
+      --page-plane:     #0d0d0d;
+      --text-primary:   #ffffff;
+      --text-secondary: #c3c2b7;
+      --text-muted:     #898781;
+      --gridline:       #2c2c2a;
+      --baseline:       #383835;
+      --border:         rgba(255,255,255,0.10);
+      --series-1: #3987e5; --series-2: #d95926; --series-3: #199e70; --series-4: #c98500;
+      --series-5: #d55181; --series-6: #008300; --series-7: #9085e9; --series-8: #a3a29c;
+    }
+  }
+  :root[data-theme="dark"] .viz-root {
+    color-scheme: dark;
+    --surface-1:      #1a1a19;
+    --page-plane:     #0d0d0d;
+    --text-primary:   #ffffff;
+    --text-secondary: #c3c2b7;
+    --text-muted:     #898781;
+    --gridline:       #2c2c2a;
+    --baseline:       #383835;
+    --border:         rgba(255,255,255,0.10);
+    --series-1: #3987e5; --series-2: #d95926; --series-3: #199e70; --series-4: #c98500;
+    --series-5: #d55181; --series-6: #008300; --series-7: #9085e9; --series-8: #a3a29c;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body.viz-root {
+    background: var(--page-plane);
+    color: var(--text-primary);
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    padding: 32px 24px 64px;
+  }
+  .wrap { max-width: 1180px; margin: 0 auto; }
+  header.page-head { margin-bottom: 28px; }
+  h1 { font-size: 22px; font-weight: 700; margin: 0 0 6px; letter-spacing: -0.01em; }
+  .subtitle { color: var(--text-secondary); font-size: 14px; margin: 0; }
+
+  .stat-row { display: flex; gap: 12px; margin-bottom: 28px; flex-wrap: wrap; }
+  .stat-tile {
+    background: var(--surface-1); border: 1px solid var(--border); border-radius: 10px;
+    padding: 14px 18px; flex: 1 1 160px; min-width: 150px;
+  }
+  .stat-tile .val { font-size: 26px; font-weight: 700; line-height: 1.15; font-variant-numeric: proportional-nums; }
+  .stat-tile .lbl { font-size: 12.5px; color: var(--text-secondary); margin-top: 3px; }
+
+  .panel {
+    background: var(--surface-1); border: 1px solid var(--border); border-radius: 14px;
+    padding: 22px 24px 18px; margin-bottom: 24px;
+  }
+  .panel-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 4px; flex-wrap: wrap; }
+  .panel-title { font-size: 15.5px; font-weight: 700; }
+  .panel-note { font-size: 12.5px; color: var(--text-muted); }
+  .panel-desc { font-size: 12.5px; color: var(--text-secondary); margin: 2px 0 14px; }
+
+  .toggle-btn {
+    font-size: 12px; color: var(--text-secondary); background: transparent;
+    border: 1px solid var(--border); border-radius: 999px; padding: 5px 12px;
+    cursor: pointer; font-family: inherit;
+  }
+  .toggle-btn:hover { color: var(--text-primary); border-color: var(--text-muted); }
+
+  svg { display: block; overflow: visible; }
+  .bar-seg { transition: opacity .12s ease; cursor: pointer; }
+  .bar-seg.dim { opacity: 0.28; }
+  .axis-label { font-size: 11px; fill: var(--text-muted); font-family: inherit; }
+  .gridline { stroke: var(--gridline); stroke-width: 1; }
+  .baseline { stroke: var(--baseline); stroke-width: 1; }
+
+  .legend { display: flex; flex-wrap: wrap; gap: 6px 16px; margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--gridline); }
+  .legend-item { display: flex; align-items: center; gap: 7px; font-size: 12.5px; color: var(--text-secondary); cursor: pointer; user-select: none; }
+  .legend-item.dim { opacity: 0.4; }
+  .legend-swatch { width: 11px; height: 11px; border-radius: 3px; flex: none; }
+
+  .tooltip {
+    position: fixed; pointer-events: none; z-index: 50;
+    background: var(--surface-1); border: 1px solid var(--border); border-radius: 8px;
+    padding: 9px 12px; font-size: 12.5px; box-shadow: 0 6px 20px rgba(0,0,0,0.14);
+    opacity: 0; transition: opacity .1s ease; max-width: 240px;
+  }
+  .tooltip.show { opacity: 1; }
+  .tooltip .tt-title { font-weight: 700; margin-bottom: 5px; }
+  .tooltip .tt-row { display: flex; justify-content: space-between; gap: 14px; padding: 1.5px 0; }
+  .tooltip .tt-row .tt-val { font-variant-numeric: tabular-nums; font-weight: 600; }
+  .tooltip .tt-swatch { display: inline-block; width: 8px; height: 8px; border-radius: 2px; margin-right: 6px; }
+  .tooltip .tt-total { border-top: 1px solid var(--gridline); margin-top: 5px; padding-top: 5px; font-weight: 700; display:flex; justify-content: space-between; }
+
+  table.data-table { width: 100%; border-collapse: collapse; font-size: 12.5px; margin-top: 4px; }
+  table.data-table th, table.data-table td {
+    text-align: right; padding: 6px 8px; border-bottom: 1px solid var(--gridline);
+    font-variant-numeric: tabular-nums; white-space: nowrap;
+  }
+  table.data-table th:first-child, table.data-table td:first-child { text-align: left; font-variant-numeric: normal; }
+  table.data-table thead th { color: var(--text-secondary); font-weight: 600; font-size: 11.5px; }
+  table.data-table tbody th { text-align: left; font-weight: 600; }
+  table.data-table tfoot td, table.data-table tfoot th { font-weight: 700; border-top: 1px solid var(--baseline); border-bottom: none; }
+  .table-scroll { overflow-x: auto; }
+
+  .other-note { font-size: 11.5px; color: var(--text-muted); margin-top: 10px; line-height: 1.5; }
+
+  footer.page-foot { text-align: center; color: var(--text-muted); font-size: 11.5px; margin-top: 8px; }
+</style>
+
+
+<div class="wrap">
+  <header class="page-head">
+    <h1>Uno 2.0 Bug Density Dashboard</h1>
+    <p class="subtitle">Bugs created over time, broken down by party (Jira Label) — UAT and CUG test cycles</p>
+  </header>
+
+  <div class="stat-row" id="statRow"><div class="stat-tile"><div class="val">1,062</div><div class="lbl">Total bugs (UAT + CUG)</div></div><div class="stat-tile"><div class="val">846</div><div class="lbl">UAT bugs · Jul 25 – Aug 26</div></div><div class="stat-tile"><div class="val">216</div><div class="lbl">CUG bugs · Jun 26 – Aug 26</div></div><div class="stat-tile"><div class="val">51 / 29</div><div class="lbl">Distinct parties (labels) · UAT / CUG</div></div></div>
+
+  <div class="panel" id="panel-UAT">
+    <div class="panel-head">
+      <div>
+        <div class="panel-title">UAT — bugs by party over time</div>
+        <div class="panel-desc">Monthly bug count, stacked by responsible party (Label). Top 7 parties shown; the rest are grouped as “Other”.</div>
+      </div>
+      <button class="toggle-btn" data-toggle="UAT">View as table</button>
+    </div>
+    <div id="chart-UAT"><svg viewBox="0 0 1120 300" width="100%" height="300" role="img" aria-label="UAT bugs by party over time"><line class="gridline" x1="40" x2="1112" y1="270" y2="270"></line><text class="axis-label" x="32" y="273" text-anchor="end">0</text><line class="gridline" x1="40" x2="1112" y1="205" y2="205"></line><text class="axis-label" x="32" y="208" text-anchor="end">63</text><line class="gridline" x1="40" x2="1112" y1="140" y2="140"></line><text class="axis-label" x="32" y="143" text-anchor="end">125</text><line class="gridline" x1="40" x2="1112" y1="75" y2="75"></line><text class="axis-label" x="32" y="78" text-anchor="end">188</text><line class="gridline" x1="40" x2="1112" y1="10" y2="10"></line><text class="axis-label" x="32" y="13" text-anchor="end">250</text><line class="baseline" x1="40" x2="1112" y1="270" y2="270"></line><path class="bar-seg" data-month="0" data-series="0" d="M44.99999999999999,270 L44.99999999999999,263.76 L111.57142857142856,263.76 L111.57142857142856,270 Z" fill="#2a78d6" stroke="var(--surface-1)" stroke-width="2"></path><path class="bar-seg" data-month="0" data-series="1" d="M44.99999999999999,262.76 L44.99999999999999,261.68 L111.57142857142856,261.68 L111.57142857142856,262.76 Z" fill="#eb6834" stroke="var(--surface-1)" stroke-width="2"></path><path class="bar-seg" data-month="0" data-series="7" d="M44.99999999999999,260.68 L44.99999999999999,262.56 Q44.99999999999999,258.56 48.99999999999999,258.56 L107.57142857142856,258.56 Q111.57142857142856,258.56 111.57142857142856,262.56 L111.57142857142856,260.68 Z" fill="#898781" stroke="var(--surface-1)" stroke-width="2"></path><text class="axis-label" x="78.28571428571428" y="288" text-anchor="middle">Jul 25</text><path class="bar-seg" data-month="1" data-series="0" d="M121.57142857142858,270 L121.57142857142858,262.72 L188.14285714285717,262.72 L188.14285714285717,270 Z" fill="#2a78d6" stroke="var(--surface-1)" stroke-width="2"></path><path class="bar-seg" data-month="1" data-series="1" d="M121.57142857142858,261.72 L121.57142857142858,258.56 L188.14285714285717,258.56 L188.14285714285717,261.72 Z" fill="#eb6834" stroke="var(--surface-1)" stroke-width="2"></path><path class="bar-seg" data-month="1" data-series="3" d="M121.57142857142858,257.56 L121.57142857142858,256.48 L188.14285714285717,256.48 L188.14285714285717,257.56 Z" fill="#eda100" stroke="var(--surface-1)" stroke-width="2"></path><path class="bar-seg" data-month="1" data-series="4" d="M121.57142857142858,255.48000000000002 L121.57142857142858,259.44000000000005 Q121.57142857142858,255.44000000000003 125.57142857142858,255.44000000000003 L184.14285714285717,255.44000000000003 Q188.14285714285717,255.44000000000003 188.14285714285717,259.44000000000005 L188.14285714285717,255.48000000000002 Z" fill="#e87ba4" stroke="var(--surface-1)" stroke-width="2"></path><text class="axis-label" x="154.85714285714286" y="288" text-anchor="middle">Aug 25</text><path class="bar-seg" data-month="2" data-series="0" d="M198.14285714285714,270 L198.14285714285714,264.8 L264.7142857142857,264.8 L264.7142857142857,270 Z" fill="#2a78d6" stroke="var(--surface-1)" stroke-width="2"></path><path class="bar-seg" data-month="2" data-series="1" d="M198.14285714285714,263.8 L198.14285714285714,259.6 L264.7142857142857,259.6 L264.7142857142857,263.8 Z" fill="#eb6834" stroke="var(--surface-1)" stroke-width="2"></path><path class="bar-seg" data-month="2" data-series="4" d="M198.14285714285714,258.6 L198.14285714285714,257.52000000000004 L264.7142857142857,257.52000000000004 L264.7142857142857,258.6 Z" fill="#e87ba4" stroke="var(--surface-1)" stroke-width="2"></path><path class="bar-seg" data-month="2" data-series="7" d="M198.14285714285714,256.52000000000004 L198.14285714285714,257.36 Q198.14285714285714,253.36000000000004 202.14285714285714,253.36000000000004 L260.7142857142857,253.36000000000004 Q264.7142857142857,253.36000000000004 264.7142857142857,257.36 L264.7142857142857,256.52000000000004 Z" fill="#898781" stroke="var(--surface-1)" stroke-width="2"></path><text class="axis-label" x="231.42857142857142" y="288" text-anchor="middle">Sep 25</text><path class="bar-seg" data-month="3" data-series="0" d="M274.7142857142857,270 L274.7142857142857,270.88 Q274.7142857142857,266.88 278.7142857142857,266.88 L337.2857142857143,266.88 Q341.2857142857143,266.88 341.2857142857143,270.88 L341.2857142857143,270 Z" fill="#2a78d6" stroke="var(--surface-1)" stroke-width="2"></path><text class="axis-label" x="308" y="288" text-anchor="middle">Oct 25</text><path class="bar-seg" data-month="4" data-series="3" d="M351.2857142857143,270 L351.2857142857143,267.92 L417.85714285714283,267.92 L417.85714285714283,270 Z" fill="#eda100" stroke="var(--surface-1)" stroke-width="2"></path><path class="bar-seg" data-month="4" data-series="7" d="M351.2857142857143,266.92 L351.2857142857143,270.88 Q351.2857142857143,266.88 355.2857142857143,266.88 L413.85714285714283,266.88 Q417.85714285714283,266.88 417.85714285714283,270.88 L417.85714285714283,266.92 Z" fill="#898781" stroke="var(--surface-1)" stroke-width="2"></path><text class="axis-label" x="384.57142857142856" y="288" text-anchor="middle">Nov 25</text><path class="bar-seg" data-month="5" data-series="0" d="M427.85714285714283,270 L427.85714285714283,264.8 L494.4285714285714,264.8 L494.4285714285714,270 Z" fill="#2a78d6" stroke="var(--surface-1)" stroke-width="2"></path><path class="bar-seg" data-month="5" data-series="1" d="M427.85714285714283,263.8 L427.85714285714283,261.68 L494.4285714285714,261.68 L494.4285714285714,263.8 Z" fill="#eb6834" stroke="var(--surface-1)" stroke-width="2"></path><path class="bar-seg" data-month="5" data-series="3" d="M427.85714285714283,260.68 L427.85714285714283,256.48 L494.4285714285714,256.48 L494.4285714285714,260.68 Z" fill="#eda100" stroke="var(--surface-1)" stroke-width="2"></path><path class="bar-seg" data-month="5" data-series="4" d="M427.85714285714283,255.48000000000002 L427.85714285714283,255.44000000000003 L494.4285714285714,255.44000000000003 L494.4285714285714,255.48000000000002 Z" fill="#e87ba4" stroke="var(--surface-1)" stroke-width="2"></path><path class="bar-seg" data-month="5" data-series="6" d="M427.85714285714283,254.44000000000003 L427.85714285714283,252.32000000000002 L494.4285714285714,252.32000000000002 L494.4285714285714,254.44000000000003 Z" fill="#4a3aa7" stroke="var(--surface-1)" stroke-width="2"></path><path class="bar-seg" data-month="5" data-series="7" d="M427.85714285714283,251.32000000000002 L427.85714285714283,252.16000000000003 Q427.85714285714283,248.16000000000003 431.85714285714283,248.16000000000003 L490.4285714285714,248.16000000000003 Q494.4285714285714,248.16000000000003 494.4285714285714,252.16000000000003 L494.4285714285714,251.32000000000002 Z" fill="#898781" stroke="var(--surface-1)" stroke-width="2"></path><text class="axis-label" x="461.1428571428571" y="288" text-anchor="middle">Dec 25</text><path class="bar-seg" data-month="6" data-series="0" d="M504.4285714285715,270 L504.4285714285715,254.4 L571.0000000000001,254.4 L571.0000000000001,270 Z" fill="#2a78d6" stroke="var(--surface-1)" stroke-width="2"></path><path class="bar-seg" data-month="6" data-series="1" d="M504.4285714285715,253.4 L504.4285714285715,242.96 L571.0000000000001,242.96 L571.0000000000001,253.4 Z" fill="#eb6834" stroke="var(--surface-1)" stroke-width="2"></path><path class="bar-seg" data-month="6" data-series="3" d="M504.4285714285715,241.96 L504.4285714285715,240.88 L571.0000000000001,240.88 L571.0000000000001,241.96 Z" fill="#eda100" stroke="var(--surface-1)" stroke-width="2"></path><path class="bar-seg" data-month="6" data-series="4" d="M504.4285714285715,239.88 L504.4285714285715,238.79999999999998 L571.0000000000001,238.79999999999998 L571.0000000000001,239.88 Z" fill="#e87ba4" stroke="var(--surface-1)" stroke-width="2"></path><path class="bar-seg" data-month="6" data-series="6" d="M504.4285714285715,237.79999999999998 L504.4285714285715,234.64 L571.0000000000001,234.64 L571.0000000000001,237.79999999999998 Z" fill="#4a3aa7" stroke="var(--surface-1)" stroke-width="2"></path><path class="bar-seg" data-month="6" data-series="7" d="M504.4285714285715,233.64 L504.4285714285715,232.39999999999998 Q504.4285714285715,228.39999999999998 508.4285714285715,228.39999999999998 L567.0000000000001,228.39999999999998 Q571.0000000000001,228.39999999999998 571.0000000000001,232.39999999999998 L571.0000000000001,233.64 Z" fill="#898781" stroke="var(--surface-1)" stroke-width="2"></path><text class="axis-label" x="537.7142857142858" y="288" text-anchor="middle">Jan 26</text><path class="bar-seg" data-month="7" data-series="0" d="M581,270 L581,250.24 L647.5714285714286,250.24 L647.5714285714286,270 Z" fill="#2a78d6" stroke="var(--surface-1)" stroke-width="2"></path><path class="bar-seg" data-month="7" data-series="1" d="M581,249.24 L581,245.04000000000002 L647.5714285714286,245.04000000000002 L647.5714285714286,249.24 Z" fill="#eb6834" stroke="var(--surface-1)" stroke-width="2"></path><path class="bar-seg" data-month="7" data-series="3" d="M581,244.04000000000002 L581,241.92000000000002 L647.5714285714286,241.92000000000002 L647.5714285714286,244.04000000000002 Z" fill="#eda100" stroke="var(--surface-1)" stroke-width="2"></path><path class="bar-seg" data-month="7" data-series="4" d="M581,240.92000000000002 L581,234.64000000000001 L647.5714285714286,234.64000000000001 L647.5714285714286,240.92000000000002 Z" fill="#e87ba4" stroke="var(--surface-1)" stroke-width="2"></path><path class="bar-seg" data-month="7" data-series="6" d="M581,233.64000000000001 L581,231.52 L647.5714285714286,231.52 L647.5714285714286,233.64000000000001 Z" fill="#4a3aa7" stroke="var(--surface-1)" stroke-width="2"></path><path class="bar-seg" data-month="7" data-series="7" d="M581,230.52 L581,229.28 Q581,225.28 585,225.28 L643.5714285714286,225.28 Q647.5714285714286,225.28 647.5714285714286,229.28 L647.5714285714286,230.52 Z" fill="#898781" stroke="var(--surface-1)" stroke-width="2"></path><text class="axis-label" x="614.2857142857143" y="288" text-anchor="middle">Feb 26</text><path class="bar-seg" data-month="8" data-series="0" d="M657.5714285714286,270 L657.5714285714286,250.24 L724.1428571428571,250.24 L724.1428571428571,270 Z" fill="#2a78d6" stroke="var(--surface-1)" stroke-width="2"></path><path class="bar-seg" data-month="8" data-series="1" d="M657.5714285714286,249.24 L657.5714285714286,228.4 L724.1428571428571,228.4 L724.1428571428571,249.24 Z" fill="#eb6834" stroke="var(--surface-1)" stroke-width="2"></path><path class="bar-seg" data-month="8" data-series="3" d="M657.5714285714286,227.4 L657.5714285714286,223.20000000000002 L724.1428571428571,223.20000000000002 L724.1428571428571,227.4 Z" fill="#eda100" stroke="var(--surface-1)" stroke-width="2"></path><path class="bar-seg" data-month="8" data-series="4" d="M657.5714285714286,222.20000000000002 L657.5714285714286,220.08 L724.1428571428571,220.08 L724.1428571428571,222.20000000000002 Z" fill="#e87ba4" stroke="var(--surface-1)" stroke-width="2"></path><path class="bar-seg" data-month="8" data-series="5" d="M657.5714285714286,219.08 L657.5714285714286,219.04000000000002 L724.1428571428571,219.04000000000002 L724.1428571428571,219.08 Z" fill="#008300" stroke="var(--surface-1)" stroke-width="2"></path><path class="bar-seg" data-month="8" data-series="6" d="M657.5714285714286,218.04000000000002 L657.5714285714286,213.84000000000003 L724.1428571428571,213.84000000000003 L724.1428571428571,218.04000000000002 Z" fill="#4a3aa7" stroke="var(--surface-1)" stroke-width="2"></path><path class="bar-seg" data-month="8" data-series="7" d="M657.5714285714286,212.84000000000003 L657.5714285714286,199.12000000000003 Q657.5714285714286,195.12000000000003 661.5714285714286,195.12000000000003 L720.1428571428571,195.12000000000003 Q724.1428571428571,195.12000000000003 724.1428571428571,199.12000000000003 L724.1428571428571,212.84000000000003 Z" fill="#898781" stroke="var(--surface-1)" stroke-width="2"></path><text class="axis-label" x="690.8571428571429" y="288" text-anchor="middle">Mar 26</text><path class="bar-seg" data-month="9" data-series="0" d="M734.1428571428571,270 L734.1428571428571,248.16 L800.7142857142857,248.16 L800.7142857142857,270 Z" fill="#2a78d6" stroke="var(--surface-1)" stroke-width="2"></path><path class="bar-seg" data-month="9" data-series="1" d="M734.1428571428571,247.16 L734.1428571428571,236.72 L800.7142857142857,236.72 L800.7142857142857,247.16 Z" fill="#eb6834" stroke="var(--surface-1)" stroke-width="2"></path><path class="bar-seg" data-month="9" data-series="3" d="M734.1428571428571,235.72 L734.1428571428571,232.56 L800.7142857142857,232.56 L800.7142857142857,235.72 Z" fill="#eda100" stroke="var(--surface-1)" stroke-width="2"></path><path class="bar-seg" data-month="9" data-series="4" d="M734.1428571428571,231.56 L734.1428571428571,224.24 L800.7142857142857,224.24 L800.7142857142857,231.56 Z" fill="#e87ba4" stroke="var(--surface-1)" stroke-width="2"></path><path class="bar-seg" data-month="9" data-series="6" d="M734.1428571428571,223.24 L734.1428571428571,220.08 L800.7142857142857,220.08 L800.7142857142857,223.24 Z" fill="#4a3aa7" stroke="var(--surface-1)" stroke-width="2"></path><path class="bar-seg" data-month="9" data-series="7" d="M734.1428571428571,219.08 L734.1428571428571,199.12 Q734.1428571428571,195.12 738.1428571428571,195.12 L796.7142857142857,195.12 Q800.7142857142857,195.12 800.7142857142857,199.12 L800.7142857142857,219.08 Z" fill="#898781" stroke="var(--surface-1)" stroke-width="2"></path><text class="axis-label" x="767.4285714285714" y="288" text-anchor="middle">Apr 26</text><path class="bar-seg" data-month="10" data-series="0" d="M810.7142857142857,270 L810.7142857142857,220.07999999999998 L877.2857142857142,220.07999999999998 L877.2857142857142,270 Z" fill="#2a78d6" stroke="var(--surface-1)" stroke-width="2"></path><path class="bar-seg" data-month="10" data-series="1" d="M810.7142857142857,219.07999999999998 L810.7142857142857,177.44 L877.2857142857142,177.44 L877.2857142857142,219.07999999999998 Z" fill="#eb6834" stroke="var(--surface-1)" stroke-width="2"></path><path class="bar-seg" data-month="10" data-series="2" d="M810.7142857142857,176.44 L810.7142857142857,174.32 L877.2857142857142,174.32 L877.2857142857142,176.44 Z" fill="#1baf7a" stroke="var(--surface-1)" stroke-width="2"></path><path class="bar-seg" data-month="10" data-series="3" d="M810.7142857142857,173.32 L810.7142857142857,167.04 L877.2857142857142,167.04 L877.2857142857142,173.32 Z" fill="#eda100" stroke="var(--surface-1)" stroke-width="2"></path><path class="bar-seg" data-month="10" data-series="4" d="M810.7142857142857,166.04 L810.7142857142857,153.51999999999998 L877.2857142857142,153.51999999999998 L877.2857142857142,166.04 Z" fill="#e87ba4" stroke="var(--surface-1)" stroke-width="2"></path><path class="bar-seg" data-month="10" data-series="5" d="M810.7142857142857,152.51999999999998 L810.7142857142857,138.95999999999998 L877.2857142857142,138.95999999999998 L877.2857142857142,152.51999999999998 Z" fill="#008300" stroke="var(--surface-1)" stroke-width="2"></path><path class="bar-seg" data-month="10" data-series="6" d="M810.7142857142857,137.95999999999998 L810.7142857142857,121.27999999999997 L877.2857142857142,121.27999999999997 L877.2857142857142,137.95999999999998 Z" fill="#4a3aa7" stroke="var(--surface-1)" stroke-width="2"></path><path class="bar-seg" data-month="10" data-series="7" d="M810.7142857142857,120.27999999999997 L810.7142857142857,31.67999999999998 Q810.7142857142857,27.67999999999998 814.7142857142857,27.67999999999998 L873.2857142857142,27.67999999999998 Q877.2857142857142,27.67999999999998 877.2857142857142,31.67999999999998 L877.2857142857142,120.27999999999997 Z" fill="#898781" stroke="var(--surface-1)" stroke-width="2"></path><text class="axis-label" x="844" y="288" text-anchor="middle">May 26</text><path class="bar-seg" data-month="11" data-series="0" d="M887.2857142857142,270 L887.2857142857142,253.36 L953.8571428571428,253.36 L953.8571428571428,270 Z" fill="#2a78d6" stroke="var(--surface-1)" stroke-width="2"></path><path class="bar-seg" data-month="11" data-series="1" d="M887.2857142857142,252.36 L887.2857142857142,249.20000000000002 L953.8571428571428,249.20000000000002 L953.8571428571428,252.36 Z" fill="#eb6834" stroke="var(--surface-1)" stroke-width="2"></path><path class="bar-seg" data-month="11" data-series="2" d="M887.2857142857142,248.20000000000002 L887.2857142857142,193.04000000000002 L953.8571428571428,193.04000000000002 L953.8571428571428,248.20000000000002 Z" fill="#1baf7a" stroke="var(--surface-1)" stroke-width="2"></path><path class="bar-seg" data-month="11" data-series="3" d="M887.2857142857142,192.04000000000002 L887.2857142857142,180.56000000000003 L953.8571428571428,180.56000000000003 L953.8571428571428,192.04000000000002 Z" fill="#eda100" stroke="var(--surface-1)" stroke-width="2"></path><path class="bar-seg" data-month="11" data-series="4" d="M887.2857142857142,179.56000000000003 L887.2857142857142,170.16000000000003 L953.8571428571428,170.16000000000003 L953.8571428571428,179.56000000000003 Z" fill="#e87ba4" stroke="var(--surface-1)" stroke-width="2"></path><path class="bar-seg" data-month="11" data-series="5" d="M887.2857142857142,169.16000000000003 L887.2857142857142,156.64000000000001 L953.8571428571428,156.64000000000001 L953.8571428571428,169.16000000000003 Z" fill="#008300" stroke="var(--surface-1)" stroke-width="2"></path><path class="bar-seg" data-month="11" data-series="6" d="M887.2857142857142,155.64000000000001 L887.2857142857142,154.56 L953.8571428571428,154.56 L953.8571428571428,155.64000000000001 Z" fill="#4a3aa7" stroke="var(--surface-1)" stroke-width="2"></path><path class="bar-seg" data-month="11" data-series="7" d="M887.2857142857142,153.56 L887.2857142857142,87.84 Q887.2857142857142,83.84 891.2857142857142,83.84 L949.8571428571428,83.84 Q953.8571428571428,83.84 953.8571428571428,87.84 L953.8571428571428,153.56 Z" fill="#898781" stroke="var(--surface-1)" stroke-width="2"></path><text class="axis-label" x="920.5714285714286" y="288" text-anchor="middle">Jun 26</text><path class="bar-seg" data-month="12" data-series="0" d="M963.8571428571429,270 L963.8571428571429,251.28 L1030.4285714285716,251.28 L1030.4285714285716,270 Z" fill="#2a78d6" stroke="var(--surface-1)" stroke-width="2"></path><path class="bar-seg" data-month="12" data-series="1" d="M963.8571428571429,250.28 L963.8571428571429,238.8 L1030.4285714285716,238.8 L1030.4285714285716,250.28 Z" fill="#eb6834" stroke="var(--surface-1)" stroke-width="2"></path><path class="bar-seg" data-month="12" data-series="2" d="M963.8571428571429,237.8 L963.8571428571429,195.12 L1030.4285714285716,195.12 L1030.4285714285716,237.8 Z" fill="#1baf7a" stroke="var(--surface-1)" stroke-width="2"></path><path class="bar-seg" data-month="12" data-series="3" d="M963.8571428571429,194.12 L963.8571428571429,181.6 L1030.4285714285716,181.6 L1030.4285714285716,194.12 Z" fill="#eda100" stroke="var(--surface-1)" stroke-width="2"></path><path class="bar-seg" data-month="12" data-series="4" d="M963.8571428571429,180.6 L963.8571428571429,176.4 L1030.4285714285716,176.4 L1030.4285714285716,180.6 Z" fill="#e87ba4" stroke="var(--surface-1)" stroke-width="2"></path><path class="bar-seg" data-month="12" data-series="5" d="M963.8571428571429,175.4 L963.8571428571429,167.04000000000002 L1030.4285714285716,167.04000000000002 L1030.4285714285716,175.4 Z" fill="#008300" stroke="var(--surface-1)" stroke-width="2"></path><path class="bar-seg" data-month="12" data-series="7" d="M963.8571428571429,166.04000000000002 L963.8571428571429,114.88000000000002 Q963.8571428571429,110.88000000000002 967.8571428571429,110.88000000000002 L1026.4285714285716,110.88000000000002 Q1030.4285714285716,110.88000000000002 1030.4285714285716,114.88000000000002 L1030.4285714285716,166.04000000000002 Z" fill="#898781" stroke="var(--surface-1)" stroke-width="2"></path><text class="axis-label" x="997.1428571428572" y="288" text-anchor="middle">Jul 26</text><path class="bar-seg" data-month="13" data-series="0" d="M1040.4285714285716,270 L1040.4285714285716,255.44 L1107.0000000000002,255.44 L1107.0000000000002,270 Z" fill="#2a78d6" stroke="var(--surface-1)" stroke-width="2"></path><path class="bar-seg" data-month="13" data-series="1" d="M1040.4285714285716,254.44 L1040.4285714285716,250.24 L1107.0000000000002,250.24 L1107.0000000000002,254.44 Z" fill="#eb6834" stroke="var(--surface-1)" stroke-width="2"></path><path class="bar-seg" data-month="13" data-series="2" d="M1040.4285714285716,249.24 L1040.4285714285716,238.8 L1107.0000000000002,238.8 L1107.0000000000002,249.24 Z" fill="#1baf7a" stroke="var(--surface-1)" stroke-width="2"></path><path class="bar-seg" data-month="13" data-series="3" d="M1040.4285714285716,237.8 L1040.4285714285716,231.52 L1107.0000000000002,231.52 L1107.0000000000002,237.8 Z" fill="#eda100" stroke="var(--surface-1)" stroke-width="2"></path><path class="bar-seg" data-month="13" data-series="4" d="M1040.4285714285716,230.52 L1040.4285714285716,229.44 L1107.0000000000002,229.44 L1107.0000000000002,230.52 Z" fill="#e87ba4" stroke="var(--surface-1)" stroke-width="2"></path><path class="bar-seg" data-month="13" data-series="5" d="M1040.4285714285716,228.44 L1040.4285714285716,223.2 L1107.0000000000002,223.2 L1107.0000000000002,228.44 Z" fill="#008300" stroke="var(--surface-1)" stroke-width="2"></path><path class="bar-seg" data-month="13" data-series="7" d="M1040.4285714285716,222.2 L1040.4285714285716,176.23999999999998 Q1040.4285714285716,172.23999999999998 1044.4285714285716,172.23999999999998 L1103.0000000000002,172.23999999999998 Q1107.0000000000002,172.23999999999998 1107.0000000000002,176.23999999999998 L1107.0000000000002,222.2 Z" fill="#898781" stroke="var(--surface-1)" stroke-width="2"></path><text class="axis-label" x="1073.7142857142858" y="288" text-anchor="middle">Aug 26</text></svg><div class="legend"><div class="legend-item" data-series="0" data-key="UAT">
+      <span class="legend-swatch" style="background:#2a78d6"></span>NotanIssue <span style="color:var(--text-muted)">(196)</span>
+    </div><div class="legend-item" data-series="1" data-key="UAT">
+      <span class="legend-swatch" style="background:#eb6834"></span>KMS-App <span style="color:var(--text-muted)">(124)</span>
+    </div><div class="legend-item" data-series="2" data-key="UAT">
+      <span class="legend-swatch" style="background:#1baf7a"></span>(No Label) <span style="color:var(--text-muted)">(110)</span>
+    </div><div class="legend-item" data-series="3" data-key="UAT">
+      <span class="legend-swatch" style="background:#eda100"></span>Custom <span style="color:var(--text-muted)">(62)</span>
+    </div><div class="legend-item" data-series="4" data-key="UAT">
+      <span class="legend-swatch" style="background:#e87ba4"></span>KMS-Microservice <span style="color:var(--text-muted)">(54)</span>
+    </div><div class="legend-item" data-series="5" data-key="UAT">
+      <span class="legend-swatch" style="background:#008300"></span>CR <span style="color:var(--text-muted)">(43)</span>
+    </div><div class="legend-item" data-series="6" data-key="UAT">
+      <span class="legend-swatch" style="background:#4a3aa7"></span>BA <span style="color:var(--text-muted)">(38)</span>
+    </div><div class="legend-item" data-series="7" data-key="UAT">
+      <span class="legend-swatch" style="background:#898781"></span>Other <span style="color:var(--text-muted)">(327)</span>
+    </div></div><div class="other-note">“Other” groups 44 smaller labels (327 bug-label tags total): API, AppsFlyer, Bayad, CFM, CIAM, CIAM-config, CMS-Config, CRM, Camunda, Data, Data-Migration, DataMigration, Deferred, FCCM, Gateway, Gcash, HPS, HyperVerge, Infobip, Infra, Instagram, LOS, M2P, Not-An-Issue, PERX, PT, PennantLoans, Performance-issue, Prod_Issue, SIT_Bug, Singlife_Integration, Solution, Test_Data, UI_Issue, VAPT, demo_feedback, design, duplicate, exotel, functional_story, gsave, iexceed, moengage, uno2.0</div></div>
+    <div id="table-UAT" style="display:none"><div class="table-scroll"><table class="data-table"><thead><tr><th>Party (Label)</th><th>Jul 25</th><th>Aug 25</th><th>Sep 25</th><th>Oct 25</th><th>Nov 25</th><th>Dec 25</th><th>Jan 26</th><th>Feb 26</th><th>Mar 26</th><th>Apr 26</th><th>May 26</th><th>Jun 26</th><th>Jul 26</th><th>Aug 26</th><th>Total</th></tr></thead><tbody><tr><th>NotanIssue</th><td>6</td><td>7</td><td>5</td><td>3</td><td></td><td>5</td><td>15</td><td>19</td><td>19</td><td>21</td><td>48</td><td>16</td><td>18</td><td>14</td><td>196</td></tr><tr><th>KMS-App</th><td>2</td><td>4</td><td>5</td><td></td><td></td><td>3</td><td>11</td><td>5</td><td>21</td><td>11</td><td>41</td><td>4</td><td>12</td><td>5</td><td>124</td></tr><tr><th>(No Label)</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>3</td><td>54</td><td>42</td><td>11</td><td>110</td></tr><tr><th>Custom</th><td></td><td>2</td><td></td><td></td><td>2</td><td>5</td><td>2</td><td>3</td><td>5</td><td>4</td><td>7</td><td>12</td><td>13</td><td>7</td><td>62</td></tr><tr><th>KMS-Microservice</th><td></td><td>1</td><td>2</td><td></td><td></td><td>1</td><td>2</td><td>7</td><td>3</td><td>8</td><td>13</td><td>10</td><td>5</td><td>2</td><td>54</td></tr><tr><th>CR</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>1</td><td></td><td>14</td><td>13</td><td>9</td><td>6</td><td>43</td></tr><tr><th>BA</th><td></td><td></td><td></td><td></td><td></td><td>3</td><td>4</td><td>3</td><td>5</td><td>4</td><td>17</td><td>2</td><td></td><td></td><td>38</td></tr><tr><th>Other</th><td>3</td><td></td><td>4</td><td></td><td>1</td><td>4</td><td>6</td><td>6</td><td>18</td><td>24</td><td>90</td><td>68</td><td>54</td><td>49</td><td>327</td></tr></tbody><tfoot><tr><td>Total (party-tags)</td><td>11</td><td>14</td><td>16</td><td>3</td><td>3</td><td>21</td><td>40</td><td>43</td><td>72</td><td>72</td><td>233</td><td>179</td><td>153</td><td>94</td><td>954</td></tr></tfoot></table></div></div>
+  </div>
+
+  <div class="panel" id="panel-CUG">
+    <div class="panel-head">
+      <div>
+        <div class="panel-title">CUG — bugs by party over time</div>
+        <div class="panel-desc">Monthly bug count, stacked by responsible party (Label). Top 7 parties shown; the rest are grouped as “Other”.</div>
+      </div>
+      <button class="toggle-btn" data-toggle="CUG">View as table</button>
+    </div>
+    <div id="chart-CUG"><svg viewBox="0 0 1120 300" width="100%" height="300" role="img" aria-label="CUG bugs by party over time"><line class="gridline" x1="40" x2="1112" y1="270" y2="270"></line><text class="axis-label" x="32" y="273" text-anchor="end">0</text><line class="gridline" x1="40" x2="1112" y1="205" y2="205"></line><text class="axis-label" x="32" y="208" text-anchor="end">50</text><line class="gridline" x1="40" x2="1112" y1="140" y2="140"></line><text class="axis-label" x="32" y="143" text-anchor="end">100</text><line class="gridline" x1="40" x2="1112" y1="75" y2="75"></line><text class="axis-label" x="32" y="78" text-anchor="end">150</text><line class="gridline" x1="40" x2="1112" y1="10" y2="10"></line><text class="axis-label" x="32" y="13" text-anchor="end">200</text><line class="baseline" x1="40" x2="1112" y1="270" y2="270"></line><path class="bar-seg" data-month="0" data-series="0" d="M48,270 L48,259.6 L389.3333333333333,259.6 L389.3333333333333,270 Z" fill="#2a78d6" stroke="var(--surface-1)" stroke-width="2"></path><path class="bar-seg" data-month="0" data-series="1" d="M48,258.6 L48,237.50000000000003 L389.3333333333333,237.50000000000003 L389.3333333333333,258.6 Z" fill="#eb6834" stroke="var(--surface-1)" stroke-width="2"></path><path class="bar-seg" data-month="0" data-series="2" d="M48,236.50000000000003 L48,212.80000000000004 L389.3333333333333,212.80000000000004 L389.3333333333333,236.50000000000003 Z" fill="#1baf7a" stroke="var(--surface-1)" stroke-width="2"></path><path class="bar-seg" data-month="0" data-series="3" d="M48,211.80000000000004 L48,205.00000000000003 L389.3333333333333,205.00000000000003 L389.3333333333333,211.80000000000004 Z" fill="#eda100" stroke="var(--surface-1)" stroke-width="2"></path><path class="bar-seg" data-month="0" data-series="4" d="M48,204.00000000000003 L48,199.80000000000004 L389.3333333333333,199.80000000000004 L389.3333333333333,204.00000000000003 Z" fill="#e87ba4" stroke="var(--surface-1)" stroke-width="2"></path><path class="bar-seg" data-month="0" data-series="5" d="M48,198.80000000000004 L48,188.10000000000005 L389.3333333333333,188.10000000000005 L389.3333333333333,198.80000000000004 Z" fill="#008300" stroke="var(--surface-1)" stroke-width="2"></path><path class="bar-seg" data-month="0" data-series="6" d="M48,187.10000000000005 L48,180.30000000000004 L389.3333333333333,180.30000000000004 L389.3333333333333,187.10000000000005 Z" fill="#4a3aa7" stroke="var(--surface-1)" stroke-width="2"></path><path class="bar-seg" data-month="0" data-series="7" d="M48,179.30000000000004 L48,140.10000000000002 Q48,136.10000000000002 52,136.10000000000002 L385.3333333333333,136.10000000000002 Q389.3333333333333,136.10000000000002 389.3333333333333,140.10000000000002 L389.3333333333333,179.30000000000004 Z" fill="#898781" stroke="var(--surface-1)" stroke-width="2"></path><text class="axis-label" x="218.66666666666666" y="288" text-anchor="middle">Jun 26</text><path class="bar-seg" data-month="1" data-series="0" d="M405.33333333333337,270 L405.33333333333337,257 L746.6666666666667,257 L746.6666666666667,270 Z" fill="#2a78d6" stroke="var(--surface-1)" stroke-width="2"></path><path class="bar-seg" data-month="1" data-series="1" d="M405.33333333333337,256 L405.33333333333337,247.9 L746.6666666666667,247.9 L746.6666666666667,256 Z" fill="#eb6834" stroke="var(--surface-1)" stroke-width="2"></path><path class="bar-seg" data-month="1" data-series="2" d="M405.33333333333337,246.9 L405.33333333333337,246.6 L746.6666666666667,246.6 L746.6666666666667,246.9 Z" fill="#1baf7a" stroke="var(--surface-1)" stroke-width="2"></path><path class="bar-seg" data-month="1" data-series="3" d="M405.33333333333337,245.6 L405.33333333333337,241.4 L746.6666666666667,241.4 L746.6666666666667,245.6 Z" fill="#eda100" stroke="var(--surface-1)" stroke-width="2"></path><path class="bar-seg" data-month="1" data-series="4" d="M405.33333333333337,240.4 L405.33333333333337,233.6 L746.6666666666667,233.6 L746.6666666666667,240.4 Z" fill="#e87ba4" stroke="var(--surface-1)" stroke-width="2"></path><path class="bar-seg" data-month="1" data-series="5" d="M405.33333333333337,232.6 L405.33333333333337,228.4 L746.6666666666667,228.4 L746.6666666666667,232.6 Z" fill="#008300" stroke="var(--surface-1)" stroke-width="2"></path><path class="bar-seg" data-month="1" data-series="7" d="M405.33333333333337,227.4 L405.33333333333337,206.4 Q405.33333333333337,202.4 409.33333333333337,202.4 L742.6666666666667,202.4 Q746.6666666666667,202.4 746.6666666666667,206.4 L746.6666666666667,227.4 Z" fill="#898781" stroke="var(--surface-1)" stroke-width="2"></path><text class="axis-label" x="576" y="288" text-anchor="middle">Jul 26</text><path class="bar-seg" data-month="2" data-series="0" d="M762.6666666666666,270 L762.6666666666666,246.6 L1104,246.6 L1104,270 Z" fill="#2a78d6" stroke="var(--surface-1)" stroke-width="2"></path><path class="bar-seg" data-month="2" data-series="1" d="M762.6666666666666,245.6 L762.6666666666666,232.29999999999998 L1104,232.29999999999998 L1104,245.6 Z" fill="#eb6834" stroke="var(--surface-1)" stroke-width="2"></path><path class="bar-seg" data-month="2" data-series="2" d="M762.6666666666666,231.29999999999998 L762.6666666666666,229.7 L1104,229.7 L1104,231.29999999999998 Z" fill="#1baf7a" stroke="var(--surface-1)" stroke-width="2"></path><path class="bar-seg" data-month="2" data-series="3" d="M762.6666666666666,228.7 L762.6666666666666,219.29999999999998 L1104,219.29999999999998 L1104,228.7 Z" fill="#eda100" stroke="var(--surface-1)" stroke-width="2"></path><path class="bar-seg" data-month="2" data-series="4" d="M762.6666666666666,218.29999999999998 L762.6666666666666,210.2 L1104,210.2 L1104,218.29999999999998 Z" fill="#e87ba4" stroke="var(--surface-1)" stroke-width="2"></path><path class="bar-seg" data-month="2" data-series="5" d="M762.6666666666666,209.2 L762.6666666666666,205 L1104,205 L1104,209.2 Z" fill="#008300" stroke="var(--surface-1)" stroke-width="2"></path><path class="bar-seg" data-month="2" data-series="6" d="M762.6666666666666,204 L762.6666666666666,197.2 L1104,197.2 L1104,204 Z" fill="#4a3aa7" stroke="var(--surface-1)" stroke-width="2"></path><path class="bar-seg" data-month="2" data-series="7" d="M762.6666666666666,196.2 L762.6666666666666,175.2 Q762.6666666666666,171.2 766.6666666666666,171.2 L1100,171.2 Q1104,171.2 1104,175.2 L1104,196.2 Z" fill="#898781" stroke="var(--surface-1)" stroke-width="2"></path><text class="axis-label" x="933.3333333333333" y="288" text-anchor="middle">Aug 26</text></svg><div class="legend"><div class="legend-item" data-series="0" data-key="CUG">
+      <span class="legend-swatch" style="background:#2a78d6"></span>NotanIssue <span style="color:var(--text-muted)">(36)</span>
+    </div><div class="legend-item" data-series="1" data-key="CUG">
+      <span class="legend-swatch" style="background:#eb6834"></span>Custom <span style="color:var(--text-muted)">(35)</span>
+    </div><div class="legend-item" data-series="2" data-key="CUG">
+      <span class="legend-swatch" style="background:#1baf7a"></span>Infra <span style="color:var(--text-muted)">(22)</span>
+    </div><div class="legend-item" data-series="3" data-key="CUG">
+      <span class="legend-swatch" style="background:#eda100"></span>KMS-App <span style="color:var(--text-muted)">(18)</span>
+    </div><div class="legend-item" data-series="4" data-key="CUG">
+      <span class="legend-swatch" style="background:#e87ba4"></span>KMS-Microservice <span style="color:var(--text-muted)">(17)</span>
+    </div><div class="legend-item" data-series="5" data-key="CUG">
+      <span class="legend-swatch" style="background:#008300"></span>CR <span style="color:var(--text-muted)">(17)</span>
+    </div><div class="legend-item" data-series="6" data-key="CUG">
+      <span class="legend-swatch" style="background:#4a3aa7"></span>CMS-Config <span style="color:var(--text-muted)">(12)</span>
+    </div><div class="legend-item" data-series="7" data-key="CUG">
+      <span class="legend-swatch" style="background:#898781"></span>Other <span style="color:var(--text-muted)">(74)</span>
+    </div></div><div class="other-note">“Other” groups 22 smaller labels (74 bug-label tags total): AppsFlyer, BA, Bayad, CRM, Camunda, Data, Data-Migration, DataMigration, Deferred, Gcash, HyperVerge, Infobip, Kong, Not-An-Issue, PERX, Prod_Issue, Singlife_Integration, Solution, duplicate, exotel, gsave, moengage</div></div>
+    <div id="table-CUG" style="display:none"><div class="table-scroll"><table class="data-table"><thead><tr><th>Party (Label)</th><th>Jun 26</th><th>Jul 26</th><th>Aug 26</th><th>Total</th></tr></thead><tbody><tr><th>NotanIssue</th><td>8</td><td>10</td><td>18</td><td>36</td></tr><tr><th>Custom</th><td>17</td><td>7</td><td>11</td><td>35</td></tr><tr><th>Infra</th><td>19</td><td>1</td><td>2</td><td>22</td></tr><tr><th>KMS-App</th><td>6</td><td>4</td><td>8</td><td>18</td></tr><tr><th>KMS-Microservice</th><td>4</td><td>6</td><td>7</td><td>17</td></tr><tr><th>CR</th><td>9</td><td>4</td><td>4</td><td>17</td></tr><tr><th>CMS-Config</th><td>6</td><td></td><td>6</td><td>12</td></tr><tr><th>Other</th><td>34</td><td>20</td><td>20</td><td>74</td></tr></tbody><tfoot><tr><td>Total (party-tags)</td><td>103</td><td>52</td><td>76</td><td>231</td></tr></tfoot></table></div></div>
+  </div>
+
+  <footer class="page-foot">Generated from Jira exports · a ticket can carry more than one label, so party counts can exceed the ticket total for a month</footer>
+</div>
+<div class="tooltip show" id="tooltip" style="left: 1352px; top: 420px;"><div class="tt-title">Jun 26</div><div class="tt-row"><span><span class="tt-swatch" style="background:#898781"></span>Other</span><span class="tt-val">68</span></div><div class="tt-row"><span><span class="tt-swatch" style="background:#1baf7a"></span>(No Label)</span><span class="tt-val">54</span></div><div class="tt-row"><span><span class="tt-swatch" style="background:#2a78d6"></span>NotanIssue</span><span class="tt-val">16</span></div><div class="tt-row"><span><span class="tt-swatch" style="background:#008300"></span>CR</span><span class="tt-val">13</span></div><div class="tt-row"><span><span class="tt-swatch" style="background:#eda100"></span>Custom</span><span class="tt-val">12</span></div><div class="tt-row"><span><span class="tt-swatch" style="background:#e87ba4"></span>KMS-Microservice</span><span class="tt-val">10</span></div><div class="tt-row"><span><span class="tt-swatch" style="background:#eb6834"></span>KMS-App</span><span class="tt-val">4</span></div><div class="tt-row"><span><span class="tt-swatch" style="background:#4a3aa7"></span>BA</span><span class="tt-val">2</span></div><div class="tt-total"><span>Total</span><span>179</span></div></div>
+
+<script>
+const DATA = {"UAT": {"months": ["2025-07", "2025-08", "2025-09", "2025-10", "2025-11", "2025-12", "2026-01", "2026-02", "2026-03", "2026-04", "2026-05", "2026-06", "2026-07", "2026-08"], "monthDisplay": ["Jul 25", "Aug 25", "Sep 25", "Oct 25", "Nov 25", "Dec 25", "Jan 26", "Feb 26", "Mar 26", "Apr 26", "May 26", "Jun 26", "Jul 26", "Aug 26"], "labels": ["NotanIssue", "KMS-App", "(No Label)", "Custom", "KMS-Microservice", "CR", "BA", "Other"], "series": {"NotanIssue": [6, 7, 5, 3, 0, 5, 15, 19, 19, 21, 48, 16, 18, 14], "KMS-App": [2, 4, 5, 0, 0, 3, 11, 5, 21, 11, 41, 4, 12, 5], "(No Label)": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 54, 42, 11], "Custom": [0, 2, 0, 0, 2, 5, 2, 3, 5, 4, 7, 12, 13, 7], "KMS-Microservice": [0, 1, 2, 0, 0, 1, 2, 7, 3, 8, 13, 10, 5, 2], "CR": [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 14, 13, 9, 6], "BA": [0, 0, 0, 0, 0, 3, 4, 3, 5, 4, 17, 2, 0, 0], "Other": [3, 0, 4, 0, 1, 4, 6, 6, 18, 24, 90, 68, 54, 49]}, "totalTickets": 846, "totalLabelsUsed": 51, "otherCount": 327, "otherLabelsList": ["API", "AppsFlyer", "Bayad", "CFM", "CIAM", "CIAM-config", "CMS-Config", "CRM", "Camunda", "Data", "Data-Migration", "DataMigration", "Deferred", "FCCM", "Gateway", "Gcash", "HPS", "HyperVerge", "Infobip", "Infra", "Instagram", "LOS", "M2P", "Not-An-Issue", "PERX", "PT", "PennantLoans", "Performance-issue", "Prod_Issue", "SIT_Bug", "Singlife_Integration", "Solution", "Test_Data", "UI_Issue", "VAPT", "demo_feedback", "design", "duplicate", "exotel", "functional_story", "gsave", "iexceed", "moengage", "uno2.0"]}, "CUG": {"months": ["2026-06", "2026-07", "2026-08"], "monthDisplay": ["Jun 26", "Jul 26", "Aug 26"], "labels": ["NotanIssue", "Custom", "Infra", "KMS-App", "KMS-Microservice", "CR", "CMS-Config", "Other"], "series": {"NotanIssue": [8, 10, 18], "Custom": [17, 7, 11], "Infra": [19, 1, 2], "KMS-App": [6, 4, 8], "KMS-Microservice": [4, 6, 7], "CR": [9, 4, 4], "CMS-Config": [6, 0, 6], "Other": [34, 20, 20]}, "totalTickets": 216, "totalLabelsUsed": 29, "otherCount": 74, "otherLabelsList": ["AppsFlyer", "BA", "Bayad", "CRM", "Camunda", "Data", "Data-Migration", "DataMigration", "Deferred", "Gcash", "HyperVerge", "Infobip", "Kong", "Not-An-Issue", "PERX", "Prod_Issue", "Singlife_Integration", "Solution", "duplicate", "exotel", "gsave", "moengage"]}}
+;
+
+const COLOR_VARS = ['--series-1','--series-2','--series-3','--series-4','--series-5','--series-6','--series-7','--series-8'];
+
+function colorFor(i) {
+  return getComputedStyle(document.body).getPropertyValue(COLOR_VARS[i % COLOR_VARS.length]).trim();
+}
+
+function fmt(n) { return n.toLocaleString('en-US'); }
+
+function buildStats() {
+  const row = document.getElementById('statRow');
+  const uatTotal = DATA.UAT.totalTickets, cugTotal = DATA.CUG.totalTickets;
+  const tiles = [
+    { val: fmt(uatTotal + cugTotal), lbl: 'Total bugs (UAT + CUG)' },
+    { val: fmt(uatTotal), lbl: 'UAT bugs · ' + DATA.UAT.monthDisplay[0] + ' – ' + DATA.UAT.monthDisplay[DATA.UAT.monthDisplay.length-1] },
+    { val: fmt(cugTotal), lbl: 'CUG bugs · ' + DATA.CUG.monthDisplay[0] + ' – ' + DATA.CUG.monthDisplay[DATA.CUG.monthDisplay.length-1] },
+    { val: DATA.UAT.totalLabelsUsed + ' / ' + DATA.CUG.totalLabelsUsed, lbl: 'Distinct parties (labels) · UAT / CUG' },
+  ];
+  row.innerHTML = tiles.map(t => `<div class="stat-tile"><div class="val">${t.val}</div><div class="lbl">${t.lbl}</div></div>`).join('');
+}
+
+function buildChart(key) {
+  const d = DATA[key];
+  const months = d.monthDisplay;
+  const labels = d.labels;
+  const series = d.series;
+  const n = months.length;
+
+  const monthTotals = months.map((_, i) => labels.reduce((s, l) => s + series[l][i], 0));
+  const maxTotal = Math.max(...monthTotals, 1);
+
+  const W = 1120, marginL = 40, marginR = 8, marginT = 10, marginB = 30;
+  const plotW = W - marginL - marginR;
+  const barGap = n > 8 ? 10 : 16;
+  const barW = Math.max(14, (plotW / n) - barGap);
+  const plotH = 260;
+
+  // y scale: nice ceiling
+  function niceCeil(v) {
+    const mag = Math.pow(10, Math.floor(Math.log10(Math.max(v,1))));
+    const steps = [1,2,2.5,5,10];
+    for (const s of steps) { if (mag*s >= v) return mag*s; }
+    return mag*10;
+  }
+  const yMax = niceCeil(maxTotal);
+  const yTicks = 4;
+  const yStep = yMax / yTicks;
+
+  function y(v) { return marginT + plotH - (v / yMax) * plotH; }
+
+  let svg = `<svg viewBox="0 0 ${W} ${marginT+plotH+marginB}" width="100%" height="${marginT+plotH+marginB}" role="img" aria-label="${key} bugs by party over time">`;
+
+  // gridlines + y labels
+  for (let i = 0; i <= yTicks; i++) {
+    const v = i * yStep;
+    const yy = y(v);
+    svg += `<line class="gridline" x1="${marginL}" x2="${W-marginR}" y1="${yy}" y2="${yy}" />`;
+    svg += `<text class="axis-label" x="${marginL-8}" y="${yy+3}" text-anchor="end">${Math.round(v)}</text>`;
+  }
+  svg += `<line class="baseline" x1="${marginL}" x2="${W-marginR}" y1="${marginT+plotH}" y2="${marginT+plotH}" />`;
+
+  // bars
+  const step = plotW / n;
+  for (let i = 0; i < n; i++) {
+    const cx = marginL + step*i + step/2;
+    const x0 = cx - barW/2;
+    let cursor = marginT + plotH;
+    labels.forEach((lbl, li) => {
+      const v = series[lbl][i];
+      if (v <= 0) return;
+      const h = (v / yMax) * plotH;
+      const yTop = cursor - h;
+      const isFirst = li === 0 || labels.slice(0, li).every(l2 => series[l2][i] <= 0);
+      const isLast = labels.slice(li+1).every(l2 => series[l2][i] <= 0);
+      let rx = 0;
+      let d0;
+      if (h <= 0.5) { cursor = yTop; return; }
+      const rTop = isLast ? 4 : 0;
+      d0 = `M${x0},${cursor - (isFirst?0:1)} `+
+           `L${x0},${yTop+rTop} `+
+           (rTop ? `Q${x0},${yTop} ${x0+rTop},${yTop} L${x0+barW-rTop},${yTop} Q${x0+barW},${yTop} ${x0+barW},${yTop+rTop} ` : `L${x0+barW},${yTop} `) +
+           `L${x0+barW},${cursor - (isFirst?0:1)} Z`;
+      svg += `<path class="bar-seg" data-month="${i}" data-series="${li}" d="${d0}" fill="${colorFor(li)}" stroke="var(--surface-1)" stroke-width="2"/>`;
+      cursor = yTop - (isLast?0:0);
+    });
+    svg += `<text class="axis-label" x="${cx}" y="${marginT+plotH+18}" text-anchor="middle">${months[i]}</text>`;
+  }
+
+  svg += `</svg>`;
+  document.getElementById('chart-'+key).innerHTML = svg;
+
+  // legend
+  const legendHtml = labels.map((l, i) => {
+    const total = series[l].reduce((a,b)=>a+b,0);
+    return `<div class="legend-item" data-series="${i}" data-key="${key}">
+      <span class="legend-swatch" style="background:${colorFor(i)}"></span>${l} <span style="color:var(--text-muted)">(${fmt(total)})</span>
+    </div>`;
+  }).join('');
+  document.getElementById('chart-'+key).innerHTML += `<div class="legend">${legendHtml}</div>`;
+  if (d.otherCount > 0) {
+    document.getElementById('chart-'+key).innerHTML += `<div class="other-note">&ldquo;Other&rdquo; groups ${d.otherLabelsList.length} smaller labels (${fmt(d.otherCount)} bug-label tags total): ${d.otherLabelsList.join(', ')}</div>`;
+  }
+
+  wireInteractions(key);
+  buildTable(key);
+}
+
+function wireInteractions(key) {
+  const container = document.getElementById('chart-'+key);
+  const tooltip = document.getElementById('tooltip');
+  const d = DATA[key];
+
+  container.querySelectorAll('.bar-seg').forEach(seg => {
+    seg.addEventListener('mousemove', (e) => {
+      const mi = +seg.dataset.month;
+      showTooltip(e, key, mi);
+    });
+    seg.addEventListener('mouseleave', () => hideTooltip());
+  });
+
+  container.querySelectorAll('.legend-item').forEach(item => {
+    item.addEventListener('mouseenter', () => {
+      const si = item.dataset.series;
+      container.querySelectorAll('.bar-seg').forEach(s => {
+        s.classList.toggle('dim', s.dataset.series !== si);
+      });
+      container.querySelectorAll('.legend-item').forEach(li => {
+        li.classList.toggle('dim', li !== item);
+      });
+    });
+    item.addEventListener('mouseleave', () => {
+      container.querySelectorAll('.bar-seg').forEach(s => s.classList.remove('dim'));
+      container.querySelectorAll('.legend-item').forEach(li => li.classList.remove('dim'));
+    });
+  });
+
+  function showTooltip(e, key, mi) {
+    const d = DATA[key];
+    const labels = d.labels;
+    let rows = labels.map((l, li) => {
+      const v = d.series[l][mi];
+      return { l, v, li };
+    }).filter(r => r.v > 0).sort((a,b) => b.v - a.v);
+    const total = rows.reduce((s,r) => s+r.v, 0);
+    let html = `<div class="tt-title">${d.monthDisplay[mi]}</div>`;
+    rows.forEach(r => {
+      html += `<div class="tt-row"><span><span class="tt-swatch" style="background:${colorFor(r.li)}"></span>${r.l}</span><span class="tt-val">${fmt(r.v)}</span></div>`;
+    });
+    html += `<div class="tt-total"><span>Total</span><span>${fmt(total)}</span></div>`;
+    tooltip.innerHTML = html;
+    tooltip.classList.add('show');
+    const x = e.clientX, y = e.clientY;
+    const tw = 240;
+    tooltip.style.left = Math.min(x+14, window.innerWidth - tw - 12) + 'px';
+    tooltip.style.top = Math.min(y+14, window.innerHeight - 200) + 'px';
+  }
+  function hideTooltip() { tooltip.classList.remove('show'); }
+}
+
+function buildTable(key) {
+  const d = DATA[key];
+  const labels = d.labels;
+  let html = '<div class="table-scroll"><table class="data-table"><thead><tr><th>Party (Label)</th>';
+  d.monthDisplay.forEach(m => html += `<th>${m}</th>`);
+  html += '<th>Total</th></tr></thead><tbody>';
+  labels.forEach(l => {
+    const vals = d.series[l];
+    const total = vals.reduce((a,b)=>a+b,0);
+    html += `<tr><th>${l}</th>` + vals.map(v => `<td>${v||''}</td>`).join('') + `<td>${fmt(total)}</td></tr>`;
+  });
+  const colTotals = d.monthDisplay.map((_,i) => labels.reduce((s,l)=>s+d.series[l][i],0));
+  const grandTotal = colTotals.reduce((a,b)=>a+b,0);
+  html += `</tbody><tfoot><tr><td>Total (party-tags)</td>` + colTotals.map(v => `<td>${fmt(v)}</td>`).join('') + `<td>${fmt(grandTotal)}</td></tr></tfoot></table></div>`;
+  document.getElementById('table-'+key).innerHTML = html;
+}
+
+document.querySelectorAll('.toggle-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const key = btn.dataset.toggle;
+    const chart = document.getElementById('chart-'+key);
+    const table = document.getElementById('table-'+key);
+    const showingTable = table.style.display !== 'none';
+    table.style.display = showingTable ? 'none' : 'block';
+    chart.style.display = showingTable ? 'block' : 'none';
+    btn.textContent = showingTable ? 'View as table' : 'View as chart';
+  });
+});
+
+buildStats();
+buildChart('UAT');
+buildChart('CUG');
+</script>
+
+
+</body></html>
